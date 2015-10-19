@@ -1,0 +1,12 @@
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\bin\Debug\Time_Server.exe.config
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\obj\Debug\Time_Server.csprojResolveAssemblyReference.cache
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\bin\Debug\Time_Server.exe
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\bin\Debug\Time_Server.pdb
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\obj\Debug\Time_Server.exe
+c:\users\malith\documents\visual studio 2013\Projects\Tank\Time_Server\obj\Debug\Time_Server.pdb
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\bin\Debug\Time_Server.exe.config
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\obj\Debug\Time_Server.exe
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\obj\Debug\Time_Server.pdb
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\bin\Debug\Time_Server.exe
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\bin\Debug\Time_Server.pdb
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Server\Time_Server\obj\Debug\Time_Server.csprojResolveAssemblyReference.cache

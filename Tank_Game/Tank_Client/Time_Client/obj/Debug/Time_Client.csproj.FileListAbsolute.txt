@@ -1,0 +1,8 @@
+c:\users\malith\documents\visual studio 2013\Projects\Time_Client\Time_Client\bin\Debug\Time_Client.exe.config
+c:\users\malith\documents\visual studio 2013\Projects\Time_Client\Time_Client\bin\Debug\Time_Client.exe
+c:\users\malith\documents\visual studio 2013\Projects\Time_Client\Time_Client\bin\Debug\Time_Client.pdb
+c:\users\malith\documents\visual studio 2013\Projects\Time_Client\Time_Client\obj\Debug\Time_Client.exe
+c:\users\malith\documents\visual studio 2013\Projects\Time_Client\Time_Client\obj\Debug\Time_Client.pdb
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Client\Time_Client\bin\Debug\Time_Client.exe.config
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Client\Time_Client\obj\Debug\Time_Client.exe
+C:\Users\Malith\Documents\Visual Studio 2013\Projects\Tank_Client\Time_Client\obj\Debug\Time_Client.pdb
