@@ -48,13 +48,14 @@ namespace Time_Server.Server
             string text = Encoding.ASCII.GetString(dataBuf);
             Console.WriteLine("Text Received: " + text);
             string response = string.Empty;
-            if(text.ToLower() != "get time")
+            if(text == "JOIN#")
             {
-                response = "Invalid Request";
+                response = "S:P1:1,1:0#";
             }
             else
             {
-                response = DateTime.Now.ToLongTimeString();
+                response = "I:P1:0,0;0,1;0,2:1,1;1,3;1,6:2,0;2,2;2,3#";
+
             }
             byte[] data = Encoding.ASCII.GetBytes(response);
             socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);

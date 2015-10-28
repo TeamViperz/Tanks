@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,11 +43,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="client\ConnectionToServer.cs" />
+    <Compile Include="GameEngine\coin.cs" />
+    <Compile Include="GameEngine\Game.cs" />
+    <Compile Include="GameEngine\GameConsole.cs" />
+    <Compile Include="GameEngine\lifePacket.cs" />
+    <Compile Include="Gui\Joystick.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Joystick.Designer.cs">
+      <DependentUpon>Joystick.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="utils\Parser.cs" />
+    <Compile Include="utils\Tokenizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gui\Joystick.resx">
+      <DependentUpon>Joystick.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

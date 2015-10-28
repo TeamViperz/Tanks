@@ -10,15 +10,16 @@ namespace Time_Client
 {
     class Program
     {
-        private static Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        static void Main(string[] args)
+        private static Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); //create a Tcp socket object to connect to server
+
+     /*  static void Main(string[] args)
         {
             Console.Title = "Client";
             LoopConnect();
             SendLoop();
             Console.ReadLine();
-        }
+        }*/
 
         private static void SendLoop()
         {
