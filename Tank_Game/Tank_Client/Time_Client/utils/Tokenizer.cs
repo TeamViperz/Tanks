@@ -30,7 +30,7 @@ namespace Time_Client.utils
                 game.player[game.myPlayerNumber].playerLocationY = int.Parse(tokens[1].Substring(2, 1));
                 game.player[game.myPlayerNumber].direction = int.Parse(tokens[2]);
 
-                //Console.WriteLine(game.player[game.myPlayerNumber].toString());
+                
                 return 0;
             }
             catch (Exception e)

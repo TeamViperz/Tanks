@@ -27,3 +27,6 @@ C:\Users\prabath s\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj
 C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.csproj.GenerateResource.Cache
 C:\Users\prabath s\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.Gui.Joystick.resources
 C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.Gui.Joystick.resources
+C:\git1\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe.config
+C:\git1\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.exe
+C:\git1\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.pdb
