@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using Time_Client.utils;
 
 namespace Time_Client.client
@@ -17,7 +15,8 @@ namespace Time_Client.client
     {
         // create a Tcp socket  to connect to server
         private static TcpClient _clientSocket = null;
-        Socket connection = null; //The socket that is listened to 
+
+        Socket connection = null; 
         TcpListener listener = null;
         private static BinaryWriter writer;
         private Parser parser;
@@ -43,10 +42,11 @@ namespace Time_Client.client
             sendData("JOIN#");
         }
 
-
+        /// <summary>
+        /// To fetch data from server
+        /// </summary>
         public  void receiveData()
         {
-
              try
             {
                 //Creating listening Socket
@@ -77,26 +77,37 @@ namespace Time_Client.client
                     }
 
                     String messageFromServer = Encoding.UTF8.GetString(inputStr.ToArray());
+
+                    //This is due to the  "?"  at the end (after the #) of the server message
                     messageFromServer = messageFromServer.Remove(messageFromServer.Length - 1);
                   
                     Console.Clear();
+
+                    // Parse and tokenize the message
                     parser.parse(messageFromServer);
+
                     Console.WriteLine("\n");
+
+                    // Print the map (Game board) on the Console
                     parser.tokenizer.printBoard();
 
+                    // Print player details on the Console
                     try
                     {
 
-                        for (int i = 0; i < game.totalPlayers-1; i++)
+                        for (int i = 0; i < game.totalPlayers - 1; i++)
                         {
-                            Console.WriteLine(game.player[i].toString() + "\n");
+                            Console.WriteLine(game.player[i].toString());
 
                         }
                     }
                     catch (Exception)
-                    {}
+                    {
+                        Console.WriteLine("Error in printing player details");
+                    }
                 
-                    Console.WriteLine("Server messege:- " + messageFromServer + "\n");
+                    // Print the raw message from the server
+                    Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
 
                     // close the netork stream
                     serverStream.Close();       
@@ -127,16 +138,13 @@ namespace Time_Client.client
         /// </summary>
         /// <param name="data"></param>
         public  void sendData(String data)
-        {
-            
+        {           
             try
             {
-                _clientSocket = new TcpClient(); //the even number bux fix
-
-
+                // Create a new TCP client socket to send data to the server
+                _clientSocket = new TcpClient();
                 _clientSocket.Connect(IPAddress.Parse("127.0.0.1"), 6000);
 
-                //Console.WriteLine("This is broadcasting00");
                 if (_clientSocket.Connected)
                 {
                     //To write to the socket

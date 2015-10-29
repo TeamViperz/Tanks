@@ -12,11 +12,15 @@ namespace Time_Client.GameEngine
 
         static void Main(string[] args)
         {
+            // Make a new Game
             Game game = new Game();
              
+            // Create a new gateway to communicate with the server
             ConnectionToServer myConnection = new ConnectionToServer(game);
+
             Console.Title = "Client";
-            // Send initial join request to the server
+
+            // Send initial join request to the server.
             myConnection.sendJOINrequest();
 
             // Create a new thread to handle incoming traffic from server

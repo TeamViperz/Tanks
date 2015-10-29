@@ -10,19 +10,24 @@ namespace Time_Client
 {
     public class Game
     {
+        // Stores the players
         public Player[] player { get; set; }
+
+        // My player Number
         public int myPlayerNumber { get; set; }
         public int totalPlayers { get; set; }
 
         public String[] brickWalls { get; set; }
         public String[] stone { get; set; }
         public String[] water { get; set; }
-        public String[,] board { get; set; } // two dimentional array for the game board
-
         public List<coin> Coin;
         public List<lifePacket> Lifepacket;
 
-        public String[,] InitialBoard { get; set; } // initial board without player locations
+        // Two dimentional array for the game board
+        public String[,] board { get; set; }
+
+        // Backup of initial board without player locations
+        public String[,] InitialBoard { get; set; } 
 
         public Game()
         {

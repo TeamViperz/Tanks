@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Time_Client.client;
 using Time_Client.GameEngine;
 
 namespace Time_Client.utils
@@ -17,6 +12,11 @@ namespace Time_Client.utils
             this.game = game;
         }
 
+        /// <summary>
+        /// Parse the server's messege if the JOIN request was accepted
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int Acceptance(String text)
         {
             try
@@ -25,21 +25,28 @@ namespace Time_Client.utils
             
                 String[] tokens = text.Split(';');
                 game.myPlayerNumber = int.Parse(tokens[0].Substring(3, 1));
-                
+
+                // Set the Console Title
+                Console.Title = "Player \""+game.myPlayerNumber.ToString()+"\" Console - Tank Game";
+
                 game.player[game.myPlayerNumber].playerLocationX = int.Parse(tokens[1].Substring(0, 1));
                 game.player[game.myPlayerNumber].playerLocationY = int.Parse(tokens[1].Substring(2, 1));
                 game.player[game.myPlayerNumber].direction = int.Parse(tokens[2]);
 
-                
                 return 0;
             }
             catch (Exception e)
-            {
-                
+            {            
                 Console.WriteLine("Error in messege sent from server :- " + e.Message);
                 return -1;
             }
         }
+
+        /// <summary>
+        /// Parse the map details
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int Initiation(String text)
         {
             text = text.Remove(0, 2);
@@ -72,7 +79,8 @@ namespace Time_Client.utils
                     game.board[int.Parse(j[1]), int.Parse(j[0])] = "W";
 
                 }
-                backupBoard(); // keep a coppy of the initial board
+                // keep a copy of the initial board without player locations
+                backupBoard(); 
                 
             }
             else
@@ -82,6 +90,12 @@ namespace Time_Client.utils
 
             return 0;
         }
+
+        /// <summary>
+        /// Parse the server's global broadcasting message
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int MovingAnDshooting(String text)
         {
             // restore the board with initial map details
@@ -93,6 +107,7 @@ namespace Time_Client.utils
 
             game.totalPlayers = tokens.Length;
            
+            // Reason for the for loop:- number of tokens vary with the number of players connected to the server
             for (int i = 0; i < tokens.Length; i++)
             {
                 if (tokens[i].StartsWith("P"))
@@ -115,7 +130,7 @@ namespace Time_Client.utils
                             game.player[i].playerLocationY = int.Parse(tokens2[j].Substring(2, 1));
                         }
                         
-                        // update the map
+                        // Update the map
                         game.board[game.player[i].playerLocationY, game.player[i].playerLocationX] = i.ToString();
 
                         if (j == 1)
@@ -146,6 +161,11 @@ namespace Time_Client.utils
             return 0;
         }
 
+        /// <summary>
+        /// Parse the server message of coin appearences
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int Coins(String text)
         {
             
@@ -157,6 +177,11 @@ namespace Time_Client.utils
             return 0;
         }
 
+        /// <summary>
+        /// Parse the server message of life packets appearences
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int lifePacks(String text)
         {
             text = text.Remove(text.Length - 1);
@@ -167,6 +192,11 @@ namespace Time_Client.utils
             return 0;
         }
 
+        /// <summary>
+        /// Handles the rest of messages (client request rejections)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public int Rejection(String text)
         {
             switch (text)
@@ -198,6 +228,9 @@ namespace Time_Client.utils
             }    
         }
 
+        /// <summary>
+        /// Print the map on the Console
+        /// </summary>
         public void printBoard()
         {
             for (int i = 0; i < 10; i++)
@@ -210,6 +243,9 @@ namespace Time_Client.utils
             }
         }
 
+        /// <summary>
+        /// Clear the board
+        /// </summary>
         public void clearBoard()
         {
             for (int i = 0; i < 10; i++)
@@ -221,6 +257,9 @@ namespace Time_Client.utils
             }
         }
 
+        /// <summary>
+        /// Backup the board
+        /// </summary>
         public void backupBoard()
         {
             for (int i = 0; i < 10; i++)
@@ -232,6 +271,9 @@ namespace Time_Client.utils
             }
         }
 
+        /// <summary>
+        /// Restore the board from the backup
+        /// </summary>
         public void restoreBoard()
         {
             for (int i = 0; i < 10; i++)

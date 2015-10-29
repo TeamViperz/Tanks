@@ -18,9 +18,13 @@ namespace Time_Client
         public int coins { get; set; }
         public int points { get; set; }
 
+        /// <summary>
+        /// display the player details
+        /// </summary>
+        /// <returns></returns>
         public String toString()
         {
-            return "\nPlayer Number: "+ (playerNumber).ToString() + "\nPlayer Location: " + (playerLocationX).ToString() + "," +(playerLocationY).ToString() +"\nPlayer direction: "+(direction).ToString()+"\n";
+            return "\nPlayer Number: "+ (playerNumber).ToString() + "\nPlayer Location: " + (playerLocationX).ToString() + "," +(playerLocationY).ToString() +"\nPlayer direction: "+(direction).ToString()+"\nWhether shot: "+(whetherShot).ToString()+"\nCoins: "+(coins).ToString()+"\nHealth : "+(health).ToString()+"\nPoints : "+(points).ToString();
         }
     }
 }
