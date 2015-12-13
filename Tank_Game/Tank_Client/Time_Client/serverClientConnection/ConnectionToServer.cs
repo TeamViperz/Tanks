@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.ExceptionServices;
 using System.Text;
-using Time_Client.utils;
+using System.Threading;
+using System.Windows.Forms.VisualStyles;
+using Tank_Client.utils;
 
-namespace Time_Client.client
+namespace Tank_Client.serverClientConnection
 {
     /// <summary>
     /// Communicating agent with the server
@@ -84,8 +87,8 @@ namespace Time_Client.client
                     Console.Clear();
 
                     // Parse and tokenize the message
-                    parser.parse(messageFromServer);
-
+                    parser.parse(messageFromServer); 
+              
                     Console.WriteLine("\n");
 
                     // Print the map (Game board) on the Console
@@ -143,6 +146,7 @@ namespace Time_Client.client
             {
                 // Create a new TCP client socket to send data to the server
                 _clientSocket = new TcpClient();
+                
                 _clientSocket.Connect(IPAddress.Parse("127.0.0.1"), 6000);
 
                 if (_clientSocket.Connected)
@@ -156,7 +160,7 @@ namespace Time_Client.client
 
                     //writing to the port                
                     writer.Write(tempStr);
-                    //Console.WriteLine("This is broadcasting");
+                    
                     writer.Close();
                     stream.Close();
 

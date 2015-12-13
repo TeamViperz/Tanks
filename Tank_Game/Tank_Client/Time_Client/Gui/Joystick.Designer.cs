@@ -1,4 +1,4 @@
-﻿namespace Time_Client.Gui
+﻿namespace Tank_Client.Gui
 {
     partial class Joystick
     {

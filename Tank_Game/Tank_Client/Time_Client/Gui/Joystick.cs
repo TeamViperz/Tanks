@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Time_Client.client;
+using Tank_Client.serverClientConnection;
 
-namespace Time_Client.Gui
+namespace Tank_Client.Gui
 {
     public partial class Joystick : Form
     {

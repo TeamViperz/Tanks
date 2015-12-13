@@ -7,7 +7,7 @@
     <ProjectGuid>{F53B7BA4-5BEE-4E1E-BC49-956CC8991196}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Time_Client</RootNamespace>
+    <RootNamespace>Tank_Client</RootNamespace>
     <AssemblyName>Time_Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="client\ConnectionToServer.cs" />
+    <Compile Include="serverClientConnection\ConnectionToServer.cs" />
     <Compile Include="GameEngine\coin.cs" />
     <Compile Include="GameEngine\Game.cs" />
     <Compile Include="GameEngine\GameConsole.cs" />
@@ -54,8 +54,7 @@
     <Compile Include="Gui\Joystick.Designer.cs">
       <DependentUpon>Joystick.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GameEngine\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utils\Parser.cs" />
     <Compile Include="utils\Tokenizer.cs" />

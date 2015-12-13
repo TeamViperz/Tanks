@@ -19,3 +19,9 @@ C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\obj\De
 C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\bin\Debug\Time_Server.exe
 C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\bin\Debug\Time_Server.pdb
 C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\obj\Debug\Time_Server.csprojResolveAssemblyReference.cache
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\bin\Debug\Time_Server.exe.config
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\obj\Debug\Time_Server.exe
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\obj\Debug\Time_Server.pdb
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\bin\Debug\Time_Server.exe
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\bin\Debug\Time_Server.pdb
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Server\Time_Server\obj\Debug\Time_Server.csprojResolveAssemblyReference.cache

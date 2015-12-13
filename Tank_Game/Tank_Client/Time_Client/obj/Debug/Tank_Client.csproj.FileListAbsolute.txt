@@ -1,0 +1,16 @@
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe.config
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.exe
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.pdb
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.pdb
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csprojResolveAssemblyReference.cache
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csproj.GenerateResource.Cache
+C:\Users\Malith\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.Gui.Joystick.resources
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe.config
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.exe
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.pdb
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.pdb
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csprojResolveAssemblyReference.cache
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.Gui.Joystick.resources
+F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csproj.GenerateResource.Cache

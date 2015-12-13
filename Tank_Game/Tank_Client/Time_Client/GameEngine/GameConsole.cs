@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using Time_Client.client;
-using Time_Client.Gui;
+using Tank_Client.Gui;
+using Tank_Client.serverClientConnection;
 
-namespace Time_Client.GameEngine
+namespace Tank_Client.GameEngine
 {
     public class GameConsole
     {

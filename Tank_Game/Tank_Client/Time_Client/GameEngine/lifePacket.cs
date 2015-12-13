@@ -1,4 +1,4 @@
-﻿namespace Time_Client.GameEngine
+﻿namespace Tank_Client.GameEngine
 {
     public class lifePacket
     {

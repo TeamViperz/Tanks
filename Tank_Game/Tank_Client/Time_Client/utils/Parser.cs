@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Time_Client.utils
+namespace Tank_Client.utils
 {
     public class Parser
     {
