@@ -4,3 +4,5 @@ Content\foreground.xnb
 Content\cell.xnb
 Content\tank1.xnb
 Content\tank2.xnb
+Content\cell1.xnb
+Content\tank3.xnb

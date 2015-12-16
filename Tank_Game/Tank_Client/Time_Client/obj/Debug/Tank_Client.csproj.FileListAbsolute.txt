@@ -14,3 +14,11 @@ F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Clie
 F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csprojResolveAssemblyReference.cache
 F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.Gui.Joystick.resources
 F:\Dropbox\ProgChallengell\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csproj.GenerateResource.Cache
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe.config
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.exe
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\obj\Debug\Time_Client.pdb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.exe
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\bin\Debug\Time_Client.pdb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csprojResolveAssemblyReference.cache
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.Gui.Joystick.resources
+F:\Dropbox\ProgChallengell\Project\Tank_Game\Tank_Client\Time_Client\obj\Debug\Tank_Client.csproj.GenerateResource.Cache

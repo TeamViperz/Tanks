@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ai\Cell.cs" />
+    <Compile Include="ai\Graph.cs" />
+    <Compile Include="ai\Grid.cs" />
+    <Compile Include="ai\PathFinder.cs" />
+    <Compile Include="ai\PriorityQueue.cs" />
+    <Compile Include="ai\Test.cs" />
     <Compile Include="serverClientConnection\ConnectionToServer.cs" />
     <Compile Include="GameEngine\coin.cs" />
     <Compile Include="GameEngine\Game.cs" />
@@ -67,6 +73,7 @@
       <DependentUpon>Joystick.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
