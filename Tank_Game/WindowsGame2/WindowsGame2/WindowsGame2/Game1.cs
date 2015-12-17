@@ -28,16 +28,28 @@ namespace WindowsGame2
         int screenHeight;
         int topMargin = 60;
         int leftMargin = 60;
+        SpriteFont font;
         ConnectionToServer myConnection;
 
         int gridCellSize = 50;
         Vector2 position = Vector2.Zero;
         Texture2D gridTexture;
         Texture2D tankTexture;
-        Texture2D bulletTexture;
-        public bulletData bullet = new bulletData();
-
-        Vector2 rocketDirection;
+        Texture2D bulletTexture1;
+        Texture2D bulletTexture2;
+        Texture2D stoneTexture;
+        Texture2D brickTexture1;
+        Texture2D brickTexture2;
+        Texture2D brickTexture3;
+        Texture2D textArea;
+        Texture2D waterTexture;
+        int init=0;
+        Game2 game;
+        public bulletData[] bullet = new bulletData[20];
+        public brickData[] bricks=new brickData[20];
+        int bulletIndex = 0;
+        public int brickIndex = 0;
+        public Color[] tankColours;
         public gridCellData[,] gridCell = new gridCellData[10, 10];
         public tankData[] tank = new tankData[5];
         public struct gridCellData
@@ -45,6 +57,7 @@ namespace WindowsGame2
             public int verticalPosition;
             public int horizontalPosition;
             public bool occupied;
+            public String occupiedBy;
         }
 
         public struct tankData
@@ -52,16 +65,32 @@ namespace WindowsGame2
             public int verticalPosition;
             public int horizontalPosition;
             public float angle;
-            public String direction;
+            public int direction;
             public bool isMoving;
+            public bool isEmpty;
+            public Color tankColor;
+            public int whetherShoot;
+            public int damageLevel;
+            public int health;
+            public int points;
 
         }
         public struct bulletData
         {
-            public string direction;
+            public int direction;
             public int verticalPos;
             public int horizontalPos;
             public bool isFlying;
+            public Texture2D texture;
+        }
+
+        public struct brickData {
+            public int status;//0 if full, 1 if half, 2 if .25, 3 if vanished
+            public int verticalLocation;
+            public int horizontalLocation;
+            public Texture2D brickTexture;
+            public bool isFull;
+
         }
 
         int[,] map = new int[,]
@@ -75,40 +104,26 @@ namespace WindowsGame2
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            game = new Game2();
+            myConnection = new ConnectionToServer(game);
+
         }
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 600;
-            bullet.verticalPos = topMargin + gridCellSize;
-            bullet.horizontalPos = leftMargin + 3 * gridCellSize;
-            bullet.isFlying = false;
-            graphics.IsFullScreen = false;
-            graphics.ApplyChanges();
-            Window.Title = "Riemer's 2D XNA Tutorial";
-
-            Game2 game = new Game2();
-            //Game1 game3 = new Game1();
-
-            // Create a new gateway to communicate with the server
-           myConnection = new ConnectionToServer(game);
-
-            //Console.Title = "Client";
-
-            // Send initial join request to the server.
             myConnection.sendJOINrequest();
-            //game3.Run();
-            /*using (Game1 game2 = new Game1())
-            {
-                game2.Run();
-            }*/
-
-
-            // Create a new thread to handle incoming traffic from server
-            //myConnection.receiveData();
-           // Thread thread = new Thread(new ThreadStart(() => myConnection.receiveData()));
-           // thread.Start();
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.IsFullScreen = false;
+            tankColours=new Color[]{Color.Red,Color.Purple,Color.Green,Color.Blue,Color.Brown};
+            for (int i = 0; i < 5; i++) { 
+                tank[i].isEmpty = true;
+                tank[i].tankColor = tankColours[i];
+            }
+            for (int i = 0; i < 5; i++) { bricks[i].isFull = false; }
+                graphics.ApplyChanges();
+            Window.Title = "Riemer's 2D XNA Tutorial";
+            
 
             base.Initialize();
         }
@@ -119,18 +134,24 @@ namespace WindowsGame2
             device = graphics.GraphicsDevice;
             Console.WriteLine(MathHelper.ToRadians(90));
 
-            backgroundTexture = Content.Load<Texture2D>("background");
+            backgroundTexture = Content.Load<Texture2D>("tankBackground2");
             foregroundTexture = Content.Load<Texture2D>("foreground");
             gridTexture = Content.Load<Texture2D>("cell1");
             tankTexture = Content.Load<Texture2D>("tank3");
             screenWidth = device.PresentationParameters.BackBufferWidth;
             screenHeight = device.PresentationParameters.BackBufferHeight;
+            waterTexture = Content.Load<Texture2D>("water");
+            brickTexture1 = Content.Load<Texture2D>("brick_full");
+            stoneTexture = Content.Load<Texture2D>("stone");
+            bulletTexture1 = Content.Load<Texture2D>("rocket");
+            bulletTexture2 = Content.Load<Texture2D>("empty");
+            textArea = Content.Load<Texture2D>("textArea");
+            font = Content.Load<SpriteFont>("myFont");
             setUpGrid();
-            //drawTank();
-            setUpTanks();
 
 
         }
+        
 
         protected override void UnloadContent()
         {
@@ -141,38 +162,167 @@ namespace WindowsGame2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             ProcessKeyboard();
-            launchRocket();
-            //myConnection.receiveData();
+            updateTank();
+            for (int i = 0; i < 20; i++) { launchRocket(i); }
+                
+            
             base.Update(gameTime);
         }
+        public void drawArena() {
+            Player player;
+            brickIndex = 0;
+            
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    
+                    if (game.board[i, j] == "B" && init==0)
+                    {
+                        gridCell[j, i].occupied = true;
+                        gridCell[j, i].occupiedBy = "B";
+                        bricks[brickIndex].horizontalLocation=j*gridCellSize+leftMargin;
+                        bricks[brickIndex].verticalLocation=i*gridCellSize+topMargin;
+                        bricks[brickIndex].status=0;
+                        bricks[brickIndex].brickTexture = brickTexture1;
+                        bricks[brickIndex].isFull = true;
+                        brickIndex++;
+                        spriteBatch.Draw(brickTexture1, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
+                    }
+                    if (game.board[i, j] == "W")
+                    {
+                        gridCell[j, i].occupied = true;
+                        gridCell[j, i].occupiedBy = "W";
+                        spriteBatch.Draw(waterTexture, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
+                    }
+                    if (game.board[i, j] == "S")
+                    {
+                        gridCell[j, i].occupied = true;
+                        gridCell[j, i].occupiedBy = "S";
+                        spriteBatch.Draw(stoneTexture, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
+                    }
+                    if (game.board[i, j] == "X") { }
+                    if (game.board[i, j] == "0")
+                    {
+                        
+                        init = 1;
+                        player = game.player[0];
+                        
+                        
+                        tank[0].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[0].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[0].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[0].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[0].isEmpty = false;
+                        
+                        gridCell[j, i].occupiedBy = "0";
+                        
 
+                    }
+                    if (game.board[i, j] == "1")
+                    {
+                        player = game.player[1];
+                        
+                       
+                        
+                        tank[1].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[1].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[1].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[1].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[1].isEmpty = false;
+                        gridCell[j, i].occupiedBy = "1";
+                    }
+                    if (game.board[i, j] == "2")
+                    {
+                        player = game.player[2];
+                        
+                        
+                        tank[2].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[2].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[2].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[2].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[2].isEmpty = false;
+                        gridCell[j, i].occupiedBy = "2";
+                    }
+                    if (game.board[i, j] == "3")
+                    {
+                        player = game.player[3];
+                        
+                        
+                        tank[3].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[3].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[3].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[3].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[3].isEmpty = false;
+                        gridCell[j, i].occupiedBy = "3";
+                    }
+                    if (game.board[i, j] == "4")
+                    {
+                        player = game.player[4];
+                        
+                        
+                        tank[4].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[4].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[4].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[4].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[4].isEmpty = false;
+                        gridCell[j, i].occupiedBy = "4";
+                    }
+                    
+                }
 
+            }
+               
+        }
+
+        
+
+        public void drawBricks() {
+            for(int i=0;i<game.brickLen;i++) {
+                spriteBatch.Draw(bricks[i].brickTexture, new Vector2(bricks[i].horizontalLocation, bricks[i].verticalLocation), Color.White);
+            }
+            
+        }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            //DrawScenery();
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1200,650), Color.White);
             drawGrid();
             drawTank();
-            drawBullet();
+            DrawText();
 
-            //spriteBatch.Draw(backgroundTexture, new Rectangle(24, 28, 45, 45), Color.Yellow);
+            for (int i = 0; i < 20; i++) { drawBullet(i); }
+                drawArena();
+            if (init == 1) { drawBricks(); }
 
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        private void DrawScenery()
+        private void DrawText()
         {
-            Rectangle screenRectangle = new Rectangle(20, 20, gridCellSize, gridCellSize);
-            Rectangle screenRectangle1 = new Rectangle(70, 20, gridCellSize, gridCellSize);
-            spriteBatch.Draw(backgroundTexture, screenRectangle, Color.Yellow);
-            spriteBatch.Draw(foregroundTexture, screenRectangle, Color.White);
-            spriteBatch.Draw(backgroundTexture, screenRectangle1, Color.Yellow);
-            spriteBatch.Draw(foregroundTexture, screenRectangle1, Color.White);
+            spriteBatch.Draw(textArea, new Rectangle(780, 40, 400, 350), Color.White);
+            for (int i = 0; i < 5; i++) {
+                spriteBatch.DrawString(font, "Player:" + i.ToString(), new Vector2(800, 60 + 65 * i), tank[i].tankColor);
+                if (!tank[i].isEmpty)
+                {
+                    
+                    spriteBatch.DrawString(font, "Points:" + tank[i].points.ToString(), new Vector2(800, 85 + 65 * i), tank[i].tankColor);
+                    spriteBatch.DrawString(font, "Health:" + tank[i].health.ToString(), new Vector2(925, 85 + 65 * i), tank[i].tankColor);
+                    spriteBatch.DrawString(font, "Coins:" + tank[i].points.ToString(), new Vector2(1050, 85 + 65 * i), tank[i].tankColor);
+                }
+
+            }
+                
         }
         private void drawGrid()
         {
@@ -182,10 +332,7 @@ namespace WindowsGame2
                 {
 
                     spriteBatch.Draw(gridTexture, new Rectangle(gridCell[i, j].horizontalPosition, gridCell[i, j].verticalPosition, gridCellSize, gridCellSize), Color.White);
-                    if (i == 0 && j == 4)
-                    {
-                        spriteBatch.Draw(tankTexture, new Rectangle(gridCell[i, j].horizontalPosition, gridCell[i, j].verticalPosition, gridCellSize, gridCellSize), Color.White);
-                    }
+                    
 
 
                 }
@@ -212,53 +359,91 @@ namespace WindowsGame2
             }
         }
 
-        public void launchRocket()
+        public void launchRocket(int i)
         {
-            if (bullet.isFlying)
+            if (bullet[i].isFlying)
             {
-                int row = (bullet.verticalPos - topMargin) / gridCellSize;
-                int column = (bullet.horizontalPos - leftMargin) / gridCellSize;
-                if (bullet.direction == "up")
+                int row = (bullet[i].verticalPos - topMargin) / gridCellSize;
+                int column = (bullet[i].horizontalPos - leftMargin) / gridCellSize;
+                if (bullet[i].direction == 0)
                 {
-                    if (bullet.verticalPos > topMargin)
+                    if (bullet[i].verticalPos > topMargin)
                     {
                         if (!gridCell[column, row - 1].occupied)
                         {
-                            bullet.verticalPos -= gridCellSize / 10;
+                            bullet[i].verticalPos -= gridCellSize/30 ;
+                        }
+                        else { 
+                            bullet[i].isFlying = false;
+                            bullet[i].texture= bulletTexture2;
+                            
                         }
                     }
+                    else
+                    {
+                        bullet[i].isFlying = false;
+                        bullet[i].texture = bulletTexture2;
+                    }
                 }
-                if (bullet.direction == "down")
+                if (bullet[i].direction == 2)
                 {
-                    Console.WriteLine("in:" + (topMargin + gridCellSize * 9));
-                    Console.WriteLine("in2:" + bullet.verticalPos);
-                    if (bullet.verticalPos < topMargin + gridCellSize * 9)
+                    if (bullet[i].verticalPos < topMargin + gridCellSize * 9)
                     {
                         if (!gridCell[column, row].occupied)
                         {
-                            bullet.verticalPos += gridCellSize;
+                            bullet[i].verticalPos += gridCellSize/30;
                         }
+                        else
+                        {
+                            bullet[i].isFlying = false;
+                            bullet[i].texture = bulletTexture2;
+                        }
+                    }
+                    else
+                    {
+                        bullet[i].isFlying = false;
+                        bullet[i].texture = bulletTexture2;
                     }
 
                 }
-                if (bullet.direction == "left")
+                if (bullet[i].direction == 3)
                 {
-                    if (bullet.horizontalPos > leftMargin)
+                    if (bullet[i].horizontalPos > leftMargin)
                     {
                         if (!gridCell[column - 1, row].occupied)
                         {
-                            bullet.horizontalPos -= gridCellSize;
+                            bullet[i].horizontalPos -= gridCellSize/30;
+                        }
+                        else
+                        {
+                            bullet[i].isFlying = false;
+                            bullet[i].texture = bulletTexture2;
                         }
                     }
+                    else
+                    {
+                        bullet[i].isFlying = false;
+                        bullet[i].texture = bulletTexture2;
+                    }
                 }
-                if (bullet.direction == "right")
+                if (bullet[i].direction == 1)
                 {
-                    if (bullet.horizontalPos < leftMargin + gridCellSize * 9)
+                    if (bullet[i].horizontalPos < leftMargin + gridCellSize * 9)
                     {
                         if (!gridCell[column + 1, row].occupied)
                         {
-                            bullet.horizontalPos += gridCellSize / 40;
+                            bullet[i].horizontalPos += gridCellSize/30;
                         }
+                        else
+                        {
+                            bullet[i].isFlying = false;
+                            bullet[i].texture = bulletTexture2;
+                        }
+                    }
+                    else
+                    {
+                        bullet[i].isFlying = false;
+                        bullet[i].texture = bulletTexture2;
                     }
                 }
 
@@ -268,56 +453,125 @@ namespace WindowsGame2
         }
         private void setUpTanks()
         {
-            for (int i = 0; i < 5; i++)
+            
+            Player player;
+            for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine(i + i);
-                tank[i].horizontalPosition = leftMargin + i * gridCellSize;
-                tank[i].verticalPosition = topMargin + i * gridCellSize;
-                gridCell[i, i].occupied = true;
-                tank[i].angle = 0;
+                for (int j = 0; j < 10; j++)
+                {
+
+                    if (game.board[i, j] == "0")
+                    {
+                        player = game.player[0];
+                        tank[0].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[0].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[0].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[0].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[0].isEmpty=false;
+
+                    }
+                    if (game.board[i, j] == "1") {
+                        player = game.player[1];
+                        tank[1].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[1].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[1].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[1].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[1].isEmpty=false;
+                    }
+                    if (game.board[i, j] == "2") {
+                        player = game.player[2];
+                        tank[2].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[2].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[2].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[2].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[2].isEmpty=false;
+                    }
+                    if (game.board[i, j] == "3") {
+                        player = game.player[3];
+                        tank[3].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[3].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[3].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[3].angle = MathHelper.ToRadians((player.direction + 1) * 90);
+                        tank[3].isEmpty=false;
+                    }
+                    if (game.board[i, j] == "4") {
+                        player = game.player[0];
+                        tank[4].horizontalPosition = player.playerLocationX * gridCellSize + leftMargin;
+                        tank[4].verticalPosition = player.playerLocationY * gridCellSize + topMargin;
+                        tank[4].direction = player.direction;
+                        gridCell[i, j].occupied = true;
+                        tank[4].angle = MathHelper.ToRadians((player.direction+1)*90);
+                        tank[4].isEmpty=false;
+                    }
+
+                }
             }
         }
         private void drawTank()
         {
             for (int k = 0; k < 5; k++)
             {
-                //Console.WriteLine(1+1);
-                spriteBatch.Draw(tankTexture, new Vector2(tank[k].horizontalPosition + gridCellSize / 2, tank[k].verticalPosition + gridCellSize / 2), null, Color.White, tank[k].angle, new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
-                //spriteBatch.Draw(tankTexture, new Vector2(tank[k].horizontalPosition, tank[k].verticalPosition), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+                if (!tank[k].isEmpty)
+                {
+                    spriteBatch.Draw(tankTexture, new Vector2(tank[k].horizontalPosition + gridCellSize / 2, tank[k].verticalPosition + gridCellSize / 2), null, tank[k].tankColor, tank[k].angle, new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
+                    
+                }
             }
         }
-        private void drawBullet()
+
+        public void updateTank() {
+            for (int i = 0; i < 5; i++) {
+                if (!tank[i].isEmpty) {
+                    Console.WriteLine("inside tank update:health:"+game.player[i].health);
+                    Console.WriteLine("inside tank update:shoot:" + game.player[i].whetherShot);
+                    tank[i].health = game.player[i].health;
+                    tank[i].points = game.player[i].points;
+                    
+                    if (game.player[i].whetherShot == 1 & game.player[i].timeToShot) {
+                        game.player[i].timeToShot = false;
+                        if (bulletIndex < 20)
+                        {
+                            Console.WriteLine("going to fly");
+                            bullet[bulletIndex].direction = tank[i].direction;
+                            bullet[bulletIndex].horizontalPos = tank[i].horizontalPosition;
+                            bullet[bulletIndex].verticalPos = tank[i].verticalPosition;
+                            bullet[bulletIndex].isFlying = true;
+                            bullet[bulletIndex].texture = bulletTexture1;
+                            bulletIndex++;
+                        }
+                        else {
+                            bulletIndex = 0;
+                            bullet[bulletIndex].direction = tank[i].direction;
+                            bullet[bulletIndex].horizontalPos = tank[i].horizontalPosition;
+                            bullet[bulletIndex].verticalPos = tank[i].verticalPosition;
+                            bullet[bulletIndex].isFlying = true;
+                            bullet[bulletIndex].texture = bulletTexture1;
+                            bulletIndex++;
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        private void drawBullet(int i)
         {
-            spriteBatch.Draw(tankTexture, new Vector2(bullet.horizontalPos, bullet.verticalPos), Color.White);
+            if (bullet[i].isFlying)
+            {
+
+                spriteBatch.Draw(bullet[i].texture, new Vector2(bullet[i].horizontalPos + gridCellSize / 2, bullet[i].verticalPos + gridCellSize / 2), null, Color.White, MathHelper.ToRadians(bullet[i].direction*90), new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
+
+            }
         }
         private void ProcessKeyboard()
         {
-            KeyboardState keybState = Keyboard.GetState();
-
-            if (keybState.IsKeyDown(Keys.Up))
-            {
-                tank[1].angle = MathHelper.ToRadians(90);
-                Console.WriteLine("up pressed");
-                //rocketAngle = players[currentPlayer].Angle;
-                tank[1].isMoving = true;
-                //tank[1].verticalPosition += gridCellSize;
-
-                // Vector2 up = new Vector2(0, -1);
-                // Matrix rotMatrix = Matrix.CreateRotationZ(tank[1].angle);
-                // rocketDirection = Vector2.Transform(up, rotMatrix);
-            }
-            if (keybState.IsKeyDown(Keys.Space))
-            {
-                //if (tank[1].isMoving) {
-                bullet.direction = "right";
-                bullet.isFlying = true;
-                Console.WriteLine("pressed");
-
-                ///}
-            }
-
-
+            
         }
+        public void updateBrick(int x,int y) { }
 
 
     }

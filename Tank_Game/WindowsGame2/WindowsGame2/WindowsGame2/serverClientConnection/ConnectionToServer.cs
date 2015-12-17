@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.ExceptionServices;
 using System.Threading;
+using WindowsGame2.ai;
 //using System.Windows.Forms.VisualStyles;
 using WindowsGame2.utils;
 using WindowsGame2.GameEngine;
@@ -18,8 +19,13 @@ namespace WindowsGame2.serverClientConnection
         // create a Tcp socket  to connect to server
         private static TcpClient _clientSocket = null;
 
-        Socket connection = null;
+      
         TcpListener listener = null;
+        TcpClient reciever = null;
+        Stream r_stream = null;
+      
+
+
         private static BinaryWriter writer;
         private Parser parser;
         private static NetworkStream stream = null;
@@ -29,13 +35,19 @@ namespace WindowsGame2.serverClientConnection
         int attempt;
         private Thread thread;
 
+        private Cell nextMove;
+        private Ai ai;
+        private bool targetPresents = false;
+
         public ConnectionToServer() { }
 
         public ConnectionToServer(Game2 game)
         {
             this.game = game;
             this.parser = new Parser(game);
-            thread = new Thread(new ThreadStart(receiveData));
+           thread = new Thread(new ThreadStart(receiveData));
+            ai = new Ai(game);
+           
         }
 
         /// <summary>
@@ -44,6 +56,7 @@ namespace WindowsGame2.serverClientConnection
         public void sendJOINrequest()
         {
             sendData("JOIN#");
+            thread.Start();
         }
 
         /// <summary>
@@ -52,72 +65,91 @@ namespace WindowsGame2.serverClientConnection
         public void receiveData()
         {
             
-            try
+
+            try { 
+            Console.WriteLine("recieving");
+
+            //Creating listening Socket
+            this.listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 7000);
+
+            Console.WriteLine("waiting for server response");
+
+            String messageFromServer;
+            
+            //Establish connection upon server request
+            while (true)
             {
-                //Creating listening Socket
-                this.listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 7000);
-
-                Console.WriteLine("waiting for server response");
-
                 //Starts listening
-                this.listener.Start();
-                //Establish connection upon server request
-                while (true)
+                listener.Start();
+                reciever = listener.AcceptTcpClient();
+                r_stream = reciever.GetStream();
+                Byte[] bytes = new Byte[256];
+
+                int i;
+                messageFromServer = null;
+                Console.WriteLine("recieving1");
+
+
+                while ((i = r_stream.Read(bytes, 0, bytes.Length)) != 0)
                 {
-                    //connection is connected socket
-                    connection = listener.AcceptSocket();
+                    messageFromServer = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                }
 
-                    //Fetch the messages from the server
-                    int asw = 0;
+                //parser.tokenizer(messageFromServer);
+                parser.parse(messageFromServer);
 
-                    //create a network stream using connection
-                    NetworkStream serverStream = new NetworkStream(connection);
-                    List<Byte> inputStr = new List<byte>();
-
-                    // fetch messages from  server
-                    while (asw != -1)
+                    // path finding starts here
+                if (messageFromServer != null)
+                {
+                    if (messageFromServer.StartsWith("G"))
                     {
-                        asw = serverStream.ReadByte();
-                        inputStr.Add((Byte)asw);
-                    }
+                            // to keep syn the game clock with server clock
+                            game.gameClock += 1;
 
-                    String messageFromServer = Encoding.UTF8.GetString(inputStr.ToArray());
+                            //path finding demo
+                            nextMove = ai.findPath(game);
 
-                    //This is due to the  "?"  at the end (after the #) of the server message
-                    messageFromServer = messageFromServer.Remove(messageFromServer.Length - 1);
+                            int currentX = game.player[0].playerLocationX;
+                            int currentY = game.player[0].playerLocationY;
+                            Console.WriteLine("\nCurrentX:- " + currentX + " CurrentY:- " + currentY + "\n");
+                            Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
 
-                    Console.Clear();
+                            if (nextMove.x != currentX || nextMove.y != currentY) { targetPresents = true; }
 
-                    // Parse and tokenize the message
-                    parser.parse(messageFromServer);
+                            // eg:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
+                            Console.WriteLine(game.timeCostToTarget);
 
-                    Console.WriteLine("\n");
-
-                    // Print the map (Game board) on the Console
-                    parser.tokenizer.printBoard();
-
-                    // Print player details on the Console
-                    try
-                    {
-
-                        for (int i = 0; i < game.totalPlayers - 1; i++)
-                        {
-                            Console.WriteLine(game.player[i].toString());
-
+                            if (targetPresents)
+                            {
+                                // move the tank
+                                if (nextMove.x == currentX + 1)
+                                {
+                                    sendData("RIGHT#");
+                                }
+                                else if (nextMove.x == currentX - 1)
+                                {
+                                    sendData("LEFT#");
+                                }
+                                else if (nextMove.y == currentY + 1)
+                                {
+                                    sendData("DOWN#");
+                                }
+                                else if (nextMove.y == currentY - 1)
+                                {
+                                    sendData("UP#");
+                                }
+                                targetPresents = false;
+                            }
                         }
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Error in printing player details");
-                    }
-
-                    // Print the raw message from the server
+                }
+                // Print the raw message from the server
                     Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
 
-                    // close the netork stream
-                    serverStream.Close();
-
-                }
+            r_stream.Close();
+            listener.Stop();
+            reciever.Close();
+        }
+               
             }
             catch (Exception e)
             {
@@ -126,16 +158,13 @@ namespace WindowsGame2.serverClientConnection
             }
             finally
             {
-                if (connection != null)
-                    if (connection.Connected)
-                        connection.Close();
+                if (reciever != null)
+                    if (reciever.Connected)
+                        reciever.Close();
                 if (errorOcurred)
                     receiveData();
             }
         }
-
-
-
 
 
         /// <summary>
@@ -171,7 +200,7 @@ namespace WindowsGame2.serverClientConnection
             catch (Exception e)
             {
                 attempt++;
-                Console.Clear();
+                // Console.Clear();
                 Console.WriteLine("Sending data to server failed due to " + e.Message);
                 Console.WriteLine("Attempt " + attempt + " to send data to server.....");
                 sendData(data);

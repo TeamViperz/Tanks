@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -7,6 +8,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms.VisualStyles;
+using Tank_Client.ai;
 using Tank_Client.utils;
 
 namespace Tank_Client.serverClientConnection
@@ -28,6 +30,12 @@ namespace Tank_Client.serverClientConnection
         private Game game = null;
         bool errorOcurred = false;     
         int attempt;
+        private bool targetPresents = false;
+
+        private Cell nextMove;
+       
+        private Ai ai;
+
 
         public ConnectionToServer(){}
 
@@ -35,6 +43,8 @@ namespace Tank_Client.serverClientConnection
         {
             this.game = game;
             this.parser = new Parser(game);
+           
+            ai = new Ai(game);
         }
 
         /// <summary>
@@ -50,6 +60,7 @@ namespace Tank_Client.serverClientConnection
         /// </summary>
         public  void receiveData()
         {
+            bool timeToMove = false;
              try
             {
                 //Creating listening Socket
@@ -63,7 +74,7 @@ namespace Tank_Client.serverClientConnection
                 while (true)
                 {
                     //connection is connected socket
-                    connection = listener.AcceptSocket();   
+                    connection = listener.AcceptSocket();
 
                     //Fetch the messages from the server
                     int asw = 0;
@@ -76,7 +87,7 @@ namespace Tank_Client.serverClientConnection
                     while (asw != -1)
                     {
                         asw = serverStream.ReadByte();
-                        inputStr.Add((Byte)asw);
+                        inputStr.Add((Byte) asw);
                     }
 
                     String messageFromServer = Encoding.UTF8.GetString(inputStr.ToArray());
@@ -86,11 +97,12 @@ namespace Tank_Client.serverClientConnection
 
 
 
+
                     Console.Clear();
 
                     // Parse and tokenize the message
-                    parser.parse(messageFromServer); 
-              
+                    parser.parse(messageFromServer);
+
                     Console.WriteLine("\n");
 
                     // Print the map (Game board) on the Console
@@ -110,14 +122,61 @@ namespace Tank_Client.serverClientConnection
                     {
                         Console.WriteLine("Error in printing player details");
                     }
-                
+
                     // Print the raw message from the server
                     Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
 
                     // close the netork stream
-                    serverStream.Close();       
+                    serverStream.Close();
 
+                    if (messageFromServer.StartsWith("G"))
+                    {
+                        timeToMove = true;
+                    }
+
+                    if (timeToMove)
+                    {
+
+                        timeToMove = false;
+
+                        // to keep syn the game clock with server clock
+                        game.gameClock += 1;
+
+                        //path finding demo
+                        nextMove = ai.findPath(game);
+
+                        int currentX = game.player[0].playerLocationX;
+                        int currentY = game.player[0].playerLocationY;
+                        Console.WriteLine("\nCurrentX:- " + currentX + " CurrentY:- " + currentY + "\n");
+                        Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
+
+                        if (nextMove.x != currentX || nextMove.y != currentY){targetPresents = true;} 
+                        
+                        // eg:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
+                        Console.WriteLine(game.timeCostToTarget);
+
+                        if (targetPresents) { 
+                            // move the tank
+                            if (nextMove.x == currentX + 1)
+                            {
+                                sendData("RIGHT#");
+                            }
+                            else if (nextMove.x == currentX - 1)
+                            {
+                                sendData("LEFT#");
+                            }
+                            else if (nextMove.y == currentY + 1)
+                            {
+                                sendData("DOWN#");
+                            }
+                            else if (nextMove.y == currentY - 1)
+                            {
+                                sendData("UP#");
+                            }
+                            targetPresents = false;
+                        }
                 }
+            }
             }
             catch (Exception e)
             {

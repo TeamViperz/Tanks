@@ -9,8 +9,13 @@ namespace Tank_Client.ai
     class Grid : Graph<Cell>
     {
         public int width, height;
-        public HashSet<Cell> walls = new HashSet<Cell>();
-        public HashSet<Cell> forests = new HashSet<Cell>();
+        public HashSet<Cell> brickWalls = new HashSet<Cell>();
+        public HashSet<Cell> stone = new HashSet<Cell>();
+        public HashSet<Cell> water = new HashSet<Cell>();
+
+        public HashSet<Cell> coins = new HashSet<Cell>();
+        public HashSet<Cell> lifePacks = new HashSet<Cell>();
+
 
         //Square grid only allows 4 directions of movement
         public static readonly Cell[] MOVABLE_DIRECTIONS = new[]
@@ -46,7 +51,11 @@ namespace Tank_Client.ai
         /// <returns></returns>
         public bool Passable(Cell id)
         {
-            return !walls.Contains(id);
+            if (stone.Contains(id)) {return false;}
+            if (water.Contains(id)) { return false; }
+            if (brickWalls.Contains(id)) { return false; }
+
+            return true;
         }
 
         /// <summary>
@@ -57,7 +66,14 @@ namespace Tank_Client.ai
         /// <returns></returns>
         public int Cost(Cell a, Cell b)
         {
-            return forests.Contains(b) ? 5 : 1;
+            // implement the cost function..... here...
+           // int cost = 5;
+
+          //  if (lifePacks.Contains(b) /* && player.health <75%*/){cost = 1; }
+          //  if (coins.Contains(b) /* && player.health >75%*/) { cost = 1; }
+
+           
+            return 1;
         }
 
         /// <summary>

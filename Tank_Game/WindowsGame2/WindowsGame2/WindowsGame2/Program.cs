@@ -18,39 +18,12 @@ namespace WindowsGame2
         /// </summary>
         static void Main(string[] args)
         {
-            // Make a new Game
-            Game2 game = new Game2();
-            Game1 game3 = new Game1();
-
-            // Create a new gateway to communicate with the server
-            ConnectionToServer myConnection = new ConnectionToServer(game);
-
-            //Console.Title = "Client";
-
-            // Send initial join request to the server.
-            myConnection.sendJOINrequest();
-            
-            //game3.Run();
             
             using (Game1 game2 = new Game1())
             {
-                game2.Run();
-                /*Thread thread = new Thread(new ThreadStart(() => myConnection.receiveData()));
-                thread.IsBackground = true;
-                thread.Start();*/
+                game2.Run();  
+                
             }
-
-
-            // Create a new thread to handle incoming traffic from server
-            
-            
-           // Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(game3.Run());
-
-           
-
-            // Create a new thread to handle incoming traffic from server
             
         }
         

@@ -9,6 +9,7 @@ namespace WindowsGame2.GameEngine
     {
         // Stores the players
         public Player[] player { get; set; }
+        public int brickLen { get; set; }
 
         // My player Number
         public int myPlayerNumber { get; set; }
@@ -26,10 +27,13 @@ namespace WindowsGame2.GameEngine
         // Backup of initial board without player locations
         public String[,] InitialBoard { get; set; }
 
+        public int timeCostToTarget { get; set; }
+        public int gameClock { get; set; }
+
         public Game2()
         {
             player = new Player[5];
-
+            gameClock = 0;
             for (int i = 0; i < 5; ++i)
             {
                 player[i] = new Player();

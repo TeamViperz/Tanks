@@ -16,6 +16,7 @@ namespace WindowsGame2.GameEngine
         public int health { get; set; }
         public int coins { get; set; }
         public int points { get; set; }
+        public Boolean timeToShot { get; set; }
 
         /// <summary>
         /// display the player details

@@ -64,6 +64,7 @@ namespace WindowsGame2.utils
                 game.brickWalls = tokens[1].Split(';');
                 game.stone = tokens[2].Split(';');
                 game.water = tokens[3].Split(';');
+                game.brickLen = game.brickWalls.Length;
                 for (int i = 0; i < game.brickWalls.Length; i++)
                 {
                     String[] j = game.brickWalls[i].Split(',');
@@ -143,6 +144,8 @@ namespace WindowsGame2.utils
                         if (j == 2)
                         {
                             game.player[i].whetherShot = int.Parse(tokens2[j]);
+                            if (game.player[i].whetherShot == 1) { game.player[i].timeToShot = true; }
+                           
                         }
                         if (j == 3)
                         {

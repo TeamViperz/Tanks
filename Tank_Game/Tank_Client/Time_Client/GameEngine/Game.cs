@@ -30,10 +30,13 @@ namespace Tank_Client
         // Backup of initial board without player locations
         public String[,] InitialBoard { get; set; } 
 
+        public int timeCostToTarget { get; set; }
+        public int gameClock { get; set; }
+
         public Game()
         {
             player = new Player[5];
-
+            gameClock = 0;
             for (int i = 0; i < 5; ++i)
             {
                 player[i] = new Player();
