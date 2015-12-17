@@ -72,3 +72,9 @@ F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGa
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tankBackground2.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\textArea.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\myFont.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_25.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_50.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_75.xnb
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_25.xnb
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_50.xnb
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_75.xnb

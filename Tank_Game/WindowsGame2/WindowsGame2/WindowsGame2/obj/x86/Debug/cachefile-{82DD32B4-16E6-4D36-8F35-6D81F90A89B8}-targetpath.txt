@@ -15,4 +15,7 @@ Content\rocket.xnb
 Content\tankBackground1.xnb
 Content\tankBackground2.xnb
 Content\textArea.xnb
+Content\brick_25.xnb
+Content\brick_50.xnb
+Content\brick_75.xnb
 Content\myFont.xnb

@@ -162,6 +162,37 @@ namespace WindowsGame2.utils
 
                     }
                 }
+
+                //newly added by prabath
+                else
+                {
+                    string[] tokens3 = tokens[i].Split(';');
+
+
+
+                    for (int j = 0; j < tokens3.Length; j++)
+                    {
+
+
+
+                        game.bricks[j].locationX = int.Parse(tokens3[j].Substring(0, 1));
+
+                        game.bricks[j].locationY = int.Parse(tokens3[j].Substring(2, 1));
+
+                        game.bricks[j].damageLevel = int.Parse(tokens3[j].Substring(4, 1));
+
+                        if (game.bricks[j].damageLevel != 4)
+                        {
+                            game.bricks[j].isFull = true;
+                        }
+
+
+
+
+
+                    }
+
+                }
             }
 
             return 0;
@@ -190,10 +221,10 @@ namespace WindowsGame2.utils
         /// <returns></returns>
         public int lifePacks(String text)
         {
-            text = text.Remove(text.Length - 1);
-            text = text.Remove(0, 2);
+            text = text.Remove(text.Length - 1); //remove #
+            text = text.Remove(0, 2); // remove L and :
             string[] tokens = text.Split(':');
-            lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]));
+            lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1])/(60*60), game.gameClock);
             game.Lifepacket.Add(LifePacket);
             return 0;
         }
@@ -258,7 +289,7 @@ namespace WindowsGame2.utils
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    game.board[i, j] = "X";
+                    game.board[i, j] = ".";
                 }
             }
         }

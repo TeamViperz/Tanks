@@ -12,11 +12,16 @@ namespace WindowsGame2.GameEngine
 
         public int lifeTime { get; set; }
 
-        public lifePacket(int locationX, int locationY, int lifeTime)
+        public int appearTimeStamp { get; set; }
+
+
+        public lifePacket(int locationX, int locationY, int lifeTime, int appearTimeStamp)
         {
             this.locationX = locationX;
             this.locationY = locationY;
             this.lifeTime = lifeTime;
+            this.appearTimeStamp = appearTimeStamp;
+            Console.Write("Life pack Time stamp ******************************************:-  "+ appearTimeStamp);
         }
     }
 }

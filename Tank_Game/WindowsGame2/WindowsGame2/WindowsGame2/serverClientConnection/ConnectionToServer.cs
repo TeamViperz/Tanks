@@ -98,13 +98,27 @@ namespace WindowsGame2.serverClientConnection
                 //parser.tokenizer(messageFromServer);
                 parser.parse(messageFromServer);
 
+                    
+
                     // path finding starts here
-                if (messageFromServer != null)
+                    if (messageFromServer != null)
                 {
                     if (messageFromServer.StartsWith("G"))
                     {
                             // to keep syn the game clock with server clock
                             game.gameClock += 1;
+
+                            Console.WriteLine(game.gameClock);
+                           // game.updateLifePacks(game.gameClock);
+                           // game.addLifePacksToBoard();
+
+                            Console.WriteLine("\n");
+
+
+                            // Print the map (Game board) on the Console
+                            parser.tokenizer.printBoard();
+
+                            Console.WriteLine("\n");
 
                             //path finding demo
                             nextMove = ai.findPath(game);
