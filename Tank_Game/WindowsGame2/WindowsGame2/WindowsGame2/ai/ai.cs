@@ -14,32 +14,27 @@ namespace WindowsGame2.ai
         private Game2 game;
 
         private int timeCostToTarget ;
-        private Stack<Cell> path;
-
-        private coin accuiredCoin;
-        private lifePacket accuiredLifePacket;
-        // store the found paths before examine the reachability
-
-
         int lowestTimeCostToCoinPile = 1000;
         int lowestTimeCostToLifePack = 1000;
 
-        Stack<Cell> pathToNearestLifePack;
-        Stack<Cell> pathToNearestCoinPile;
+        // store the found paths before examine the reachability
+        private Stack<Cell> path;
 
+        private Stack<Cell> pathToNearestLifePack;
+        private Stack<Cell> pathToNearestCoinPile;
+
+        private coin accuiredCoin;
+        private lifePacket accuiredLifePacket;
+     
         public Ai(Game2 game)
         {
             this.game = game;
             this.myPlayerNo = game.myPlayerNumber;
-           
 
             path = new Stack<Cell>();
             pathToNearestLifePack = new Stack<Cell>();
             pathToNearestCoinPile = new Stack<Cell>();
         }
-        
-       
-
 
          void DrawPath()
         {
@@ -62,8 +57,7 @@ namespace WindowsGame2.ai
                 timeCostToTarget += 1;
             }
              path.Pop();
-             this.timeCostToTarget = timeCostToTarget; // game --> this
-
+             this.timeCostToTarget = timeCostToTarget;
          }
 
         public Cell findPath(Game2 game)
@@ -98,36 +92,33 @@ namespace WindowsGame2.ai
             }
 
             
-            // get ai player's my Player's current position
+            // get my Player's current position
             var start = new Cell(game.player[myPlayerNo].playerLocationX, game.player[myPlayerNo].playerLocationY);
-           // Cell goal = new Cell(9,9);
 
-            // Get the proper goal to follow.
-            //tips
-            /*
+
+            //#################### Begins the Procedure to Get the proper goal to follow. #####################################
+
+            /* tips...
             value of the coin, lifetime, whether an enemy is also targetting the coin - if he can get it soon,....
             if my health is low, high priority to health pack
             */
 
-            // steps 
-            /*
+            /* STEPS
             1. apply A* for every pack on the board - store each path (stacks), time cost to goal (in s)
             2. for each goal, time to goal > life time of goal ? ignore; 
-            3. pro step - if enemy is goalting this and he can reach it before me ? ignore; ( this will be implemented at the final stage of the development)
-            4. now I have reachable goals. if my health is low? lifepack: coin
+           (3) pro step - if enemy is goalting this and he can reach it before me ? ignore; ( this will be implemented at the final stage of the development)
+           (4) now I have reachable goals. if my health is low? lifepack: coin
             5. if coin:  select the most valuable coin -- to be implemented!!!
             6. now you have a precise goal !
-            */
-             // TO DO
-             /*
+           
+             
+             /*  TO DO
              go to the most valuable coin pile from the reachable coinPile list
              */
 
-          //  if (game.player[myPlayerNo].health < 50)
-          //  {
 
-                // step 1 + 2
-                Console.WriteLine(game.player[myPlayerNo].health + "******************************************************");
+            // ######### Life Packs search ##########
+       
                 foreach (var lifePack in game.Lifepacket)
                 {
                     Console.WriteLine("lowestTimeCost= " + lowestTimeCostToLifePack + " timeCostToTarget= " + timeCostToTarget + " lifeTime" + lifePack.lifeTime);
@@ -157,8 +148,6 @@ namespace WindowsGame2.ai
                         pathToNearestLifePack = new Stack<Cell>(path.Reverse());
                         }
                     }
-
-
                 }
 
                 if (game.Lifepacket.Count != 0)
@@ -167,45 +156,8 @@ namespace WindowsGame2.ai
                     game.Lifepacket.Remove(accuiredLifePacket);
                 }
 
+            // ######### Coin Piles search ##########
 
-
-
-
-
-                /* if (start.x == goal.x && start.y == goal.y)
-                 {
-                     game.timeCostToTarget = 0; return goal; // check this
-                 }
-                 */
-                /* var patheFinder = new PathFinder(grid, start, goal);
-
-                 BuildPath(start, goal, patheFinder.cameFrom);*/
-
-                // send this path back
-               /* if (pathToNearestPack.Count != 0)
-                {
-                    //get the next cell address to move
-                    var nextCell = pathToNearestPack.Pop();
-
-                    // clear stacks
-                    pathToNearestPack.Clear();
-                    path.Clear();
-
-                    return nextCell;
-                }
-                else
-                {
-                    // if there aren't any life packs on the board
-                    path.Clear();
-                    return start;
-                }*/
-          //  }
-
-
-
-
-            // step 1 + 2
-             Console.WriteLine(game.player[myPlayerNo].health + "******************************************************");
              foreach (var coinPile in game.Coin)
              {
                 Console.WriteLine("lowestTimeCost= " + lowestTimeCostToCoinPile + " timeCostToTarget= " + timeCostToTarget + " lifeTime" + coinPile.lifeTime);
@@ -235,7 +187,6 @@ namespace WindowsGame2.ai
                       } 
                  }
 
-
              }
 
             if (game.Coin.Count != 0)
@@ -243,22 +194,10 @@ namespace WindowsGame2.ai
                 Console.WriteLine("Coin removed!");
                 game.Coin.Remove(accuiredCoin);
             } 
+
+
+            // ####### take decission to go to the Life pack or the Coin pile
             
-             
-
-
-
-
-            /* if (start.x == goal.x && start.y == goal.y)
-             {
-                 game.timeCostToTarget = 0; return goal; // check this
-             }
-             */
-           /* var patheFinder = new PathFinder(grid, start, goal);
-
-            BuildPath(start, goal, patheFinder.cameFrom);*/
-
-            // send this path back
             if (lowestTimeCostToCoinPile < lowestTimeCostToLifePack)
             {
                 if (pathToNearestCoinPile.Count != 0)
@@ -279,6 +218,7 @@ namespace WindowsGame2.ai
                     return start;
                 }
             }
+
             if (pathToNearestLifePack.Count != 0)
             {
                 //get the next cell address to move
@@ -296,8 +236,7 @@ namespace WindowsGame2.ai
                 path.Clear();
                 return start;
             }
-
-
+    
 
         }
         
