@@ -81,6 +81,24 @@ namespace WindowsGame2.ai
             // this should be a life pack or coin pack
             var goal = new Cell(9,9);  
 
+            // Get the proper target to follow.
+            //tips
+            /*
+            value of the coin, lifetime, whether an enemy is also targetting the coin - if he can get it soon,....
+            if my health is low, high priority to health pack
+            */
+
+            // steps 
+            /*
+            1. apply A* for every pack on the board - store each path (stacks), time cost to target (in s)
+            2. for each target, time to target > life time of target ? ignore; 
+            3. pro step - if enemy is targetting this and he can reach it before me ? ignore; ( this will be implemented at the final stage of the development)
+            4. now I have reachable targets. if my health is low? lifepack: coin
+            5. now you have a precise target !
+            */
+
+
+
             if (start.x == goal.x && start.y == goal.y)
             {
                 game.timeCostToTarget = 0; return goal;
