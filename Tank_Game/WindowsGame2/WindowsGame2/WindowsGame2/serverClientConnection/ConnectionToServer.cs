@@ -121,18 +121,19 @@ namespace WindowsGame2.serverClientConnection
 
                             Console.WriteLine("\n");
 
-                            //path finding demo
+                            //path finding starts
                             nextMove = ai.findPath(game);
 
                             int currentX = game.player[0].playerLocationX;
                             int currentY = game.player[0].playerLocationY;
-                            Console.WriteLine("\nCurrentX:- " + currentX + " CurrentY:- " + currentY + "\n");
+                            
                             Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
-
+                            
+                            // no movements if there isn't a reachable goal on the board
                             if (nextMove.x != currentX || nextMove.y != currentY) { targetPresents = true; }
-
-                            // eg:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
-                            Console.WriteLine(game.timeCostToTarget);
+                            
+                            // TO DO:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
+                           
 
                             if (targetPresents)
                             {
@@ -168,7 +169,7 @@ namespace WindowsGame2.serverClientConnection
             }
             catch (Exception e)
             {
-                Console.WriteLine("Communication (RECEIVING) Failed! \n " + e.Message);
+                Console.WriteLine("Communication (RECEIVING) Failed!  " + e.Message+ "\n"+e.Source+ "\n" + e.Data);
                 errorOcurred = true;
             }
             finally
