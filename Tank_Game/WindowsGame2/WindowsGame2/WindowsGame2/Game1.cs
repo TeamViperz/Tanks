@@ -45,6 +45,8 @@ namespace WindowsGame2
         Texture2D brickTexture5;
         Texture2D textArea;
         Texture2D waterTexture;
+        Texture2D coinTexture;
+        Texture2D lifeTexture;
         int init = 0;
         Game2 game;
         public bulletData[] bullet = new bulletData[20];
@@ -156,6 +158,8 @@ namespace WindowsGame2
             bulletTexture2 = Content.Load<Texture2D>("empty");
             textArea = Content.Load<Texture2D>("textArea");
             font = Content.Load<SpriteFont>("myFont");
+            lifeTexture = Content.Load<Texture2D>("lifepack");
+            coinTexture = Content.Load<Texture2D>("coin");
             setUpGrid();
 
 
@@ -212,6 +216,14 @@ namespace WindowsGame2
                         gridCell[j, i].occupiedBy = "S";
                         spriteBatch.Draw(stoneTexture, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
                     }
+                    if (game.board[i, j] == "L") {
+                        spriteBatch.Draw(lifeTexture, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
+                    }
+                    if (game.board[i, j] == "C")
+                    {
+                        spriteBatch.Draw(coinTexture, new Vector2(j * gridCellSize + leftMargin, i * gridCellSize + topMargin), Color.White);
+                    }
+                    
                     if (game.board[i, j] == "X") { }
                     if (game.board[i, j] == "0")
                     {
@@ -222,7 +234,7 @@ namespace WindowsGame2
                         {
                             if (gridCell[(tank[0].horizontalPosition - leftMargin) / gridCellSize, (tank[0].verticalPosition - topMargin) / gridCellSize].occupied)
                             {
-                                Console.WriteLine("rearranging the occupation at:row:" + (tank[0].horizontalPosition - leftMargin) / gridCellSize + " column:" + (tank[0].verticalPosition - topMargin) / gridCellSize);
+                               // Console.WriteLine("rearranging the occupation at:row:" + (tank[0].horizontalPosition - leftMargin) / gridCellSize + " column:" + (tank[0].verticalPosition - topMargin) / gridCellSize);
                                 gridCell[(tank[0].horizontalPosition - leftMargin) / gridCellSize, (tank[0].verticalPosition - topMargin) / gridCellSize].occupied = false;
                             }
                         }

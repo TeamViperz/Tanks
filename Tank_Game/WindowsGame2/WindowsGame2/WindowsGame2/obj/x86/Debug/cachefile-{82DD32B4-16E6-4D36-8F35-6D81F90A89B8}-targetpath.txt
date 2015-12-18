@@ -18,4 +18,6 @@ Content\textArea.xnb
 Content\brick_25.xnb
 Content\brick_50.xnb
 Content\brick_75.xnb
+Content\coin.xnb
+Content\lifepack.xnb
 Content\myFont.xnb

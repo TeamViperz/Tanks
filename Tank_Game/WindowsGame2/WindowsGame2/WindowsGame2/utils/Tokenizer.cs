@@ -209,7 +209,7 @@ namespace WindowsGame2.utils
             text = text.Remove(text.Length - 1);
             text = text.Remove(0, 2);
             string[] tokens = text.Split(':');
-            coin Coin = new coin(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]), int.Parse(tokens[2]));
+            coin Coin = new coin(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]) / (1000), int.Parse(tokens[2]), game.gameClock);
             game.Coin.Add(Coin);
             return 0;
         }
@@ -224,7 +224,7 @@ namespace WindowsGame2.utils
             text = text.Remove(text.Length - 1); //remove #
             text = text.Remove(0, 2); // remove L and :
             string[] tokens = text.Split(':');
-            lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1])/(60*60), game.gameClock);
+            lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1])/(1000), game.gameClock);
             game.Lifepacket.Add(LifePacket);
             return 0;
         }

@@ -82,6 +82,7 @@
     <Compile Include="ai\PathFinder.cs" />
     <Compile Include="ai\PriorityQueue.cs" />
     <Compile Include="ai\VirtualJoystic.cs" />
+    <Compile Include="GameEngine\brick.cs" />
     <Compile Include="GameEngine\coin.cs" />
     <Compile Include="GameEngine\Game2.cs" />
     <Compile Include="GameEngine\GameConsole.cs" />

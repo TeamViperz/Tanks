@@ -23,7 +23,10 @@ namespace WindowsGame2.GameEngine
         public List<lifePacket> Lifepacket { get; set; }
 
         // tempory list to kill lifepackets
-        public List<lifePacket> killList;
+        public List<lifePacket> killListLifePack;
+
+        // tempory list to kill coin piles
+        public List<coin> killListCoinPile;
 
         // Two dimentional array for the game board
         public String[,] board { get; set; }
@@ -57,33 +60,57 @@ namespace WindowsGame2.GameEngine
 
             Coin = new List<coin>();
             Lifepacket = new List<lifePacket>();
+    
+            killListLifePack = new List<lifePacket>();
+            killListCoinPile = new List<coin>();
         }
 
-        public void updateLifePacks(int currentTime)
+        public void updatePacks(int currentTime)
         {
             foreach (var pack in Lifepacket)
             {
-                Console.WriteLine("current time:- "+currentTime+" start:- "+pack.appearTimeStamp+" lifeTime:- "+pack.lifeTime+" *****************----------------");
+                //Console.WriteLine("current time:- "+currentTime+" start:- "+pack.appearTimeStamp+" lifeTime:- "+pack.lifeTime+" *****************----------------");
                 if (currentTime >= pack.appearTimeStamp + pack.lifeTime)
                 {
                     board[pack.locationY, pack.locationX] = ".";
-                    killList.Add(pack);
+                    killListLifePack.Add(pack);
                 }
             }
-            foreach (var i in killList)
+            foreach (var i in killListLifePack)
             {
                 Lifepacket.Remove(i);
             }
 
+            foreach (var pack in Coin)
+            {
+                //Console.WriteLine("current time:- " + currentTime + " start:- " + pack.appearTimeStamp + " lifeTime:- " + pack.lifeTime + " *****************----------------");
+                if (currentTime >= pack.appearTimeStamp + pack.lifeTime)
+                {
+                    board[pack.locationY, pack.locationX] = ".";
+                    killListCoinPile.Add(pack);
+                }
+            }
+            foreach (var i in killListCoinPile)
+            {
+                Coin.Remove(i);
+            }
+
         }
 
-        public void addLifePacksToBoard()
+        public void addPacksToBoard()
         {
             foreach (var pack in Lifepacket)
             {
 
                 board[pack.locationY, pack.locationX] = "L";
             }
+
+            foreach (var pack in Coin)
+            {
+
+                board[pack.locationY, pack.locationX] = "C";
+            }
+
         }
 
     }

@@ -95,10 +95,10 @@ namespace WindowsGame2.serverClientConnection
                     messageFromServer = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 }
 
-                //parser.tokenizer(messageFromServer);
+                
                 parser.parse(messageFromServer);
+                game.addPacksToBoard();
 
-                    
 
                     // path finding starts here
                     if (messageFromServer != null)
@@ -109,8 +109,9 @@ namespace WindowsGame2.serverClientConnection
                             game.gameClock += 1;
 
                             Console.WriteLine(game.gameClock);
-                           // game.updateLifePacks(game.gameClock);
-                           // game.addLifePacksToBoard();
+
+                            game.updatePacks(game.gameClock);
+                            game.addPacksToBoard();
 
                             Console.WriteLine("\n");
 

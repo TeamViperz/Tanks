@@ -78,3 +78,5 @@ F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGa
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_25.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_50.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brick_75.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\coin.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\lifepack.xnb
