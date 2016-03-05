@@ -50,6 +50,7 @@ namespace WindowsGame2
         Texture2D brickTexture5;
         Texture2D coinTexture;
         Texture2D lifeTexture;
+        Texture2D logoTexture;
         //Texture2D emptyTankTexture;
         Texture2D textArea;
         Texture2D waterTexture;
@@ -130,16 +131,16 @@ namespace WindowsGame2
         protected override void Initialize()
         {
             myConnection.sendJOINrequest();
-            graphics.PreferredBackBufferWidth = 1200;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1250;
+            graphics.PreferredBackBufferHeight = 650;
             graphics.IsFullScreen = false;
             //tankTexture = Content.Load<Texture2D>("tank3");
             tankColours = new Color[] { Color.OrangeRed, Color.Plum, Color.LightGreen, Color.SkyBlue, Color.Chocolate };
             textCoulours = new Color[] { Color.Red, Color.Purple, Color.Green, Color.Blue, Color.Brown };
-            
+
             for (int i = 0; i < 5; i++)
             {
-                
+
                 tank[i].isEmpty = true;
                 tank[i].isPlaying = true;
                 tank[i].tankColor = tankColours[i];
@@ -158,9 +159,9 @@ namespace WindowsGame2
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
-           // //Console.WriteLine(MathHelper.ToRadians(90));
+            // //Console.WriteLine(MathHelper.ToRadians(90));
 
-            backgroundTexture = Content.Load<Texture2D>("tankBackground2");
+            backgroundTexture = Content.Load<Texture2D>("background3");
             foregroundTexture = Content.Load<Texture2D>("foreground");
             gridTexture = Content.Load<Texture2D>("cell5");
             blueTankTexture = Content.Load<Texture2D>("tank3");
@@ -180,11 +181,12 @@ namespace WindowsGame2
             stoneTexture = Content.Load<Texture2D>("stone");
             bulletTexture1 = Content.Load<Texture2D>("rocket");
             bulletTexture2 = Content.Load<Texture2D>("empty");
-            textArea = Content.Load<Texture2D>("textArea2");
+            textArea = Content.Load<Texture2D>("textArea3");
             // emptyTankTexture = Content.Load<Texture2D>("empty");
             font = Content.Load<SpriteFont>("myFont");
             lifeTexture = Content.Load<Texture2D>("lifepack");
             coinTexture = Content.Load<Texture2D>("coin");
+            logoTexture = Content.Load<Texture2D>("logo");
 
             setUpGrid();
 
@@ -253,7 +255,7 @@ namespace WindowsGame2
                     if (game.board[i, j] == "X") { }
                     if (game.board[i, j] == "0")
                     {
-                      //  Console.WriteLine("player 0: location:" + i + "," + j + " isempty:" + tank[0].isEmpty);
+                        //  Console.WriteLine("player 0: location:" + i + "," + j + " isempty:" + tank[0].isEmpty);
                         init = 1;
                         player = game.player[0];
 
@@ -431,7 +433,8 @@ namespace WindowsGame2
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1200, 650), Color.White);
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1250, 750), Color.White);
+            spriteBatch.Draw(logoTexture, new Rectangle(60, 600, 300, 30), Color.White);
             drawGrid();
             //drawTank();
             DrawText();
@@ -448,17 +451,21 @@ namespace WindowsGame2
 
         private void DrawText()
         {
-            spriteBatch.Draw(textArea, new Rectangle(780, 40, 400, 400), Color.White);
-            spriteBatch.DrawString(font, "My player number:" + game.myPlayerNumber, new Vector2(800, 60), Color.Black);
+            spriteBatch.Draw(textArea, new Rectangle(780, 60, 400, 400), Color.White);
+            spriteBatch.DrawString(font, "My player number:" + game.myPlayerNumber, new Vector2(900, 90), Color.Black);
             for (int i = 0; i < 5; i++)
             {
-                spriteBatch.DrawString(font, "Player:" + i.ToString(), new Vector2(800, 100 + 65 * i), textCoulours[i]);
+                //spriteBatch.DrawString(font, "Player:" + i.ToString(), new Vector2(800, 120 + 65 * i), textCoulours[i]);
+                spriteBatch.DrawString(font, i.ToString(), new Vector2(860, 200 + 42 * i), textCoulours[i]);
                 if (!tank[i].isEmpty)
                 {
 
-                    spriteBatch.DrawString(font, "Points:" + tank[i].points.ToString(), new Vector2(800, 125 + 65 * i), textCoulours[i]);
-                    spriteBatch.DrawString(font, "Health:" + tank[i].health.ToString(), new Vector2(925, 125 + 65 * i), textCoulours[i]);
-                    spriteBatch.DrawString(font, "Coins:" + tank[i].points.ToString(), new Vector2(1050, 125 + 65 * i), textCoulours[i]);
+                    //spriteBatch.DrawString(font, "Points:" + tank[i].points.ToString(), new Vector2(800, 145 + 65 * i), textCoulours[i]);
+                    //spriteBatch.DrawString(font, "Health:" + tank[i].health.ToString(), new Vector2(925, 145 + 65 * i), textCoulours[i]);
+                    //spriteBatch.DrawString(font, "Coins:" + tank[i].points.ToString(), new Vector2(1050, 145 + 65 * i), textCoulours[i]);
+                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(935, 200 + 42 * i), textCoulours[i]);
+                    spriteBatch.DrawString(font, tank[i].health.ToString(), new Vector2(1010, 200 + 42 * i), textCoulours[i]);
+                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(1090, 200 + 42 * i), textCoulours[i]);
                 }
 
             }
@@ -493,7 +500,8 @@ namespace WindowsGame2
                         //Console.Write(j);
                         //Console.Write("\n");
                     }
-                    else { //Console.Write(j);
+                    else
+                    { //Console.Write(j);
                     }
                 }
 
@@ -671,22 +679,24 @@ namespace WindowsGame2
             for (int k = 0; k < 5; k++)
             {
                 //if (!tank[k].isEmpty && tank[k].isPlaying)
-                if(tank[k].isPlaying)
+                if (tank[k].isPlaying)
                 {
-                   // Console.WriteLine("value of k outside the if:" + k+" health:"+tank[k].health);
+                    // Console.WriteLine("value of k outside the if:" + k+" health:"+tank[k].health);
                     if (tank[k].health > 0)
                     {
-                       // Console.WriteLine("k is:" + k+" /////////////////////////////////////////////////////////////////////////////////");
+                        // Console.WriteLine("k is:" + k+" /////////////////////////////////////////////////////////////////////////////////");
                         spriteBatch.Draw(tanks[k], new Vector2(tank[k].horizontalPosition + gridCellSize / 2, tank[k].verticalPosition + gridCellSize / 2), null, tank[k].tankColor, tank[k].angle, new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
                     }
-                    else {
+                    else
+                    {
                         //tank[k].isEmpty = true;
                         //tank[k].isPlaying = false;
                     }
                 }
-                else if (!tank[k].isPlaying) { //Console.WriteLine("tank is not playing:" + k);
-                   // Console.WriteLine("inside else////////////////////////////////////////////////////////////////////////////////");
-                   // spriteBatch.Draw(gridTexture, new Vector2(tank[k].horizontalPosition + gridCellSize / 2, tank[k].verticalPosition + gridCellSize / 2), null, tank[k].tankColor, tank[k].angle, new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
+                else if (!tank[k].isPlaying)
+                { //Console.WriteLine("tank is not playing:" + k);
+                  // Console.WriteLine("inside else////////////////////////////////////////////////////////////////////////////////");
+                  // spriteBatch.Draw(gridTexture, new Vector2(tank[k].horizontalPosition + gridCellSize / 2, tank[k].verticalPosition + gridCellSize / 2), null, tank[k].tankColor, tank[k].angle, new Vector2(gridCellSize / 2, gridCellSize / 2), 1, SpriteEffects.None, 1);
                 }
             }
         }

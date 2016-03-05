@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using WindowsGame2.GameEngine;
@@ -28,21 +29,21 @@ namespace WindowsGame2.utils
                 // eg text      S    :     P0;0,0;0    :    P1;0,9;0    #
                 // discription  S:P<num>; < player location  x>,< player location  y>:<Direction>#
 
-               // Console.WriteLine(text);
+                // Console.WriteLine(text);
 
                 text = text.Remove(text.Length - 1); // remove the #
-                text = text.Remove(0,2); // remove the S:
+                text = text.Remove(0, 2); // remove the S:
 
-              //  Console.WriteLine(text);
+                //  Console.WriteLine(text);
                 String[] tokens = text.Split(':'); // each token represents a player.
 
                 game.totalPlayers = tokens.Length;
-              //  Console.WriteLine(game.totalPlayers);
-                game.initializePlayers(game.totalPlayers); 
+                //  Console.WriteLine(game.totalPlayers);
+                game.initializePlayers(game.totalPlayers);
 
-                for (int i=0; i <game.totalPlayers; i++)
+                for (int i = 0; i < game.totalPlayers; i++)
                 {
-                    
+
                     // P0;0,0;0 
                     String[] interTokens = tokens[i].Split(';');
                     // P0 0,0 0 
@@ -53,7 +54,7 @@ namespace WindowsGame2.utils
                     game.player[i].direction = int.Parse(interTokens[2]);
                 }
 
-                
+
                 return 0;
             }
             catch (Exception e)
@@ -80,44 +81,44 @@ namespace WindowsGame2.utils
             String[] tokens = text.Split(':');
 
             game.myPlayerNumber = int.Parse(tokens[0].Substring(1, 1));
-           // Console.WriteLine("my player number is " + game.myPlayerNumber);
+            // Console.WriteLine("my player number is " + game.myPlayerNumber);
 
-          //  if (tokens[0].Substring(1, 1).Equals(game.player[game.myPlayerNumber].playerNumber.ToString()))
+            //  if (tokens[0].Substring(1, 1).Equals(game.player[game.myPlayerNumber].playerNumber.ToString()))
             //{
-                clearBoard();
-                game.brickWalls = tokens[1].Split(';');
-                game.stone = tokens[2].Split(';');
-                game.water = tokens[3].Split(';');
-                game.brickLen = game.brickWalls.Length;
-                for (int i = 0; i < game.brickWalls.Length; i++)
-                {
-                    String[] j = game.brickWalls[i].Split(',');
-                    game.board[int.Parse(j[1]), int.Parse(j[0])] = "B";
+            clearBoard();
+            game.brickWalls = tokens[1].Split(';');
+            game.stone = tokens[2].Split(';');
+            game.water = tokens[3].Split(';');
+            game.brickLen = game.brickWalls.Length;
+            for (int i = 0; i < game.brickWalls.Length; i++)
+            {
+                String[] j = game.brickWalls[i].Split(',');
+                game.board[int.Parse(j[1]), int.Parse(j[0])] = "B";
 
-                }
-                for (int i = 0; i < game.stone.Length; i++)
-                {
-                    String[] j = game.stone[i].Split(',');
-                    game.board[int.Parse(j[1]), int.Parse(j[0])] = "S";
+            }
+            for (int i = 0; i < game.stone.Length; i++)
+            {
+                String[] j = game.stone[i].Split(',');
+                game.board[int.Parse(j[1]), int.Parse(j[0])] = "S";
 
-                }
-                for (int i = 0; i < game.water.Length; i++)
-                {
-                    String[] j = game.water[i].Split(',');
-                    game.board[int.Parse(j[1]), int.Parse(j[0])] = "W";
+            }
+            for (int i = 0; i < game.water.Length; i++)
+            {
+                String[] j = game.water[i].Split(',');
+                game.board[int.Parse(j[1]), int.Parse(j[0])] = "W";
 
-                }
-                // keep a copy of the initial board without player locations
-                backupBoard();
+            }
+            // keep a copy of the initial board without player locations
+            backupBoard();
 
-                // Set the Console Title
-                //Console.Title = "Player \"" + game.myPlayerNumber.ToString() + "\" Console - Tank Game";
+            // Set the Console Title
+            //Console.Title = "Player \"" + game.myPlayerNumber.ToString() + "\" Console - Tank Game";
 
-           // }
-           // else
-           // {
-          //      Console.WriteLine("Player name mismatch while initializing");
-          //  }
+            // }
+            // else
+            // {
+            //      Console.WriteLine("Player name mismatch while initializing");
+            //  }
 
             return 0;
         }
@@ -137,7 +138,7 @@ namespace WindowsGame2.utils
             String[] tokens = text.Split(':');
 
             //game.totalPlayers = tokens.Length - 1;
-            
+
 
             // Reason for the for loop:- number of tokens vary with the number of players connected to the server
             for (int i = 0; i < tokens.Length; i++)
@@ -170,12 +171,12 @@ namespace WindowsGame2.utils
                         }
 
                         // Update the map with players 
-                      /*  if (int.Parse(tokens2[3]) != 0) // prevent adding dead players to the board
-                        {
-                            Console.WriteLine("Health is " + int.Parse(tokens2[3]));
-                            game.board[game.player[i].playerLocationY, game.player[i].playerLocationX] = i.ToString();
-                            Console.WriteLine("Player no " + i);
-                        }*/
+                        /*  if (int.Parse(tokens2[3]) != 0) // prevent adding dead players to the board
+                          {
+                              Console.WriteLine("Health is " + int.Parse(tokens2[3]));
+                              game.board[game.player[i].playerLocationY, game.player[i].playerLocationX] = i.ToString();
+                              Console.WriteLine("Player no " + i);
+                          }*/
 
                         if (j == 1)
                         {
@@ -215,27 +216,27 @@ namespace WindowsGame2.utils
                 {
                     string[] tokens3 = tokens[i].Split(';');
 
-
-
                     for (int j = 0; j < tokens3.Length; j++)
                     {
 
-
-
-                        game.bricks[j].locationX = int.Parse(tokens3[j].Substring(0, 1));
-
-                        game.bricks[j].locationY = int.Parse(tokens3[j].Substring(2, 1));
-
-                        game.bricks[j].damageLevel = int.Parse(tokens3[j].Substring(4, 1));
-
-                        if (game.bricks[j].damageLevel != 4)
+                        if (game.bricks[j].isFull)
                         {
-                            game.bricks[j].isFull = true;
+
+                            game.bricks[j].locationX = int.Parse(tokens3[j].Substring(0, 1));
+
+                            game.bricks[j].locationY = int.Parse(tokens3[j].Substring(2, 1));
+
+                            int damageLevel = int.Parse(tokens3[j].Substring(4, 1));
+                            game.bricks[j].damageLevel = damageLevel;
+
+                            if (damageLevel == 4)
+                            {
+                                Console.WriteLine("damages to 4********************************");
+                                game.bricks[j].isFull = false;
+                            }
+                            
+
                         }
-
-
-
-
 
                     }
 
@@ -256,8 +257,14 @@ namespace WindowsGame2.utils
             text = text.Remove(text.Length - 1);
             text = text.Remove(0, 2);
             string[] tokens = text.Split(':');
-            coin Coin = new coin(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]) / (1000), int.Parse(tokens[2]), game.gameClock);
-            Console.WriteLine("***Coin*** value = " + Coin.value + " life time = "+ Coin.lifeTime + " X,Y "+ Coin.locationX+","+Coin.locationY);
+
+            int lifeTimeInMills = int.Parse(tokens[1]);
+            if (lifeTimeInMills == 5000) { lifeTimeInMills = 200000; } // spoils of war - set lifetime unlimited
+            int lifeTime = lifeTimeInMills / (1000);
+
+
+            coin Coin = new coin(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), lifeTime, int.Parse(tokens[2]), game.gameClock);
+            // Console.WriteLine("***Coin*** value = " + Coin.value + " life time = "+ Coin.lifeTime + " X,Y "+ Coin.locationX+","+Coin.locationY);
             game.Coin.Add(Coin);
             return 0;
         }
@@ -273,7 +280,7 @@ namespace WindowsGame2.utils
             text = text.Remove(0, 2); // remove L and :
             string[] tokens = text.Split(':');
             lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]) / (1000), game.gameClock);
-            Console.WriteLine("***LifePacket*** life time = " + LifePacket.lifeTime + " X,Y " + LifePacket.locationX + "," + LifePacket.locationY);
+            //  Console.WriteLine("***LifePacket*** life time = " + LifePacket.lifeTime + " X,Y " + LifePacket.locationX + "," + LifePacket.locationY);
             game.Lifepacket.Add(LifePacket);
 
             return 0;
@@ -370,6 +377,18 @@ namespace WindowsGame2.utils
                     game.board[i, j] = game.InitialBoard[i, j];
                 }
             }
+            Console.WriteLine("restoring bode");
+            foreach (var b in game.bricks)
+            {
+                if (!(b.isFull))
+                {
+                    Console.WriteLine("Detected a fully damaged brick!!");
+                    game.board[b.locationX, b.locationY] = ".";
+                }
+            }
         }
+
+
+
     }
 }

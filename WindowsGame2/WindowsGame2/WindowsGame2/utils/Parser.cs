@@ -38,13 +38,13 @@ namespace WindowsGame2.utils
 
                 else if (msgFrmServer.StartsWith("C") && msgFrmServer.EndsWith("#"))
                 {
-                    Console.WriteLine("Received new coin pile");
+                   // Console.WriteLine("Received new coin pile");
                     tokenizer.Coins(msgFrmServer);
                 }
 
                 else if (msgFrmServer.StartsWith("L") && msgFrmServer.EndsWith("#"))
                 {
-                    Console.WriteLine("Received a new Life pack");
+                   // Console.WriteLine("Received a new Life pack");
                     tokenizer.lifePacks(msgFrmServer);
                 }
                 else

@@ -21,7 +21,7 @@ namespace WindowsGame2.GameEngine
             this.locationY = locationY;
             this.lifeTime = lifeTime;
             this.appearTimeStamp = appearTimeStamp;
-            Console.Write("Life pack Time stamp ******************************************:-  "+ appearTimeStamp);
+           // Console.Write("Life pack Time stamp ******************************************:-  "+ appearTimeStamp);
         }
     }
 }

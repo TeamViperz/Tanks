@@ -20,7 +20,7 @@ namespace WindowsGame2.GameEngine
             this.value = value;
             this.lifeTime = lifeTime;
             this.appearTimeStamp = appearTimeStamp;
-            Console.Write("Coin pile Time stamp ******************************************:-  " + appearTimeStamp);
+           // Console.Write("Coin pile Time stamp ******************************************:-  " + appearTimeStamp);
         }
 
     }

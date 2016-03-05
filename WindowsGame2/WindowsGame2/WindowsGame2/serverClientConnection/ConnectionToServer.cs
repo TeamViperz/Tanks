@@ -19,11 +19,11 @@ namespace WindowsGame2.serverClientConnection
         // create a Tcp socket  to connect to server
         private static TcpClient _clientSocket = null;
 
-      
+
         TcpListener listener = null;
         TcpClient reciever = null;
         Stream r_stream = null;
-      
+
 
 
         private static BinaryWriter writer;
@@ -38,7 +38,7 @@ namespace WindowsGame2.serverClientConnection
         private Cell nextMove;
         private Ai ai;
         private bool packPresents;
-       
+
 
         public ConnectionToServer() { }
 
@@ -46,11 +46,11 @@ namespace WindowsGame2.serverClientConnection
         {
             this.game = game;
             this.parser = new Parser(game);
-           thread = new Thread(new ThreadStart(receiveData));
+            thread = new Thread(new ThreadStart(receiveData));
             ai = new Ai(game);
             packPresents = false;
             errorOcurred = false;
-           
+
         }
 
         /// <summary>
@@ -67,57 +67,60 @@ namespace WindowsGame2.serverClientConnection
         /// </summary>
         public void receiveData()
         {
-            
 
-            try { 
-        //    Console.WriteLine("recieving");
 
-            //Creating listening Socket
+            try
+            {
+                //    Console.WriteLine("recieving");
+
+                //Creating listening Socket
                 this.listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 7000);
 
-      //      Console.WriteLine("waiting for server response");
+                //      Console.WriteLine("waiting for server response");
 
-            String messageFromServer;
-            
-            //Establish connection upon server request
-            while (true)
-            {
-                //Starts listening
-                listener.Start();
-                reciever = listener.AcceptTcpClient();
-                r_stream = reciever.GetStream();
-                Byte[] bytes = new Byte[256];
+                String messageFromServer;
 
-                int i;
-                messageFromServer = null;
-             //   Console.WriteLine("recieving1");
-
-
-                while ((i = r_stream.Read(bytes, 0, bytes.Length)) != 0)
+                //Establish connection upon server request
+                while (true)
                 {
-                    messageFromServer = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                }
+                    //Starts listening
+                    listener.Start();
+                    reciever = listener.AcceptTcpClient();
+                    r_stream = reciever.GetStream();
+                    Byte[] bytes = new Byte[256];
 
-                
-                parser.parse(messageFromServer);
-               // game.addPacksToBoard();
-                   
+                    int i;
+                    messageFromServer = null;
+                    //   Console.WriteLine("recieving1");
+
+
+                    while ((i = r_stream.Read(bytes, 0, bytes.Length)) != 0)
+                    {
+                        messageFromServer = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                    }
+
+                    // Print the raw message from the server
+                    Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
+
+                    parser.parse(messageFromServer);
+                    // game.addPacksToBoard();
+
 
 
                     // path finding starts here
                     if (messageFromServer != null)
-                {
-                    if (messageFromServer.StartsWith("G"))
                     {
-                          //  Console.WriteLine("inide G");
+                        if (messageFromServer.StartsWith("G"))
+                        {
+                            //  Console.WriteLine("inide G");
                             // to keep syn the game clock with server clock
                             game.gameClock += 1;
 
-                              Console.WriteLine("Game Clock is " +game.gameClock);
+                            Console.WriteLine("Game Clock is " + game.gameClock);
 
                             game.addPacksToBoard();
                             game.updatePacks(game.gameClock);
-                            
+
 
                             Console.WriteLine("\n");
 
@@ -130,16 +133,26 @@ namespace WindowsGame2.serverClientConnection
                             //path finding starts ( The whole ai business happens here..... )
                             nextMove = ai.findPath(game);
 
+                            /*  //solution to the exception (if me and an enemy tries to  jump to a cell simultaniously
+                            String gameCell = game.board[nextMove.x, nextMove.y];
+                            if (gameCell == "0" || gameCell == "1" || gameCell == "2" || gameCell == "3" || gameCell == "4")
+                            {
+                                continue;
+                            }
+                            */
                             int currentX = game.me.playerLocationX;
                             int currentY = game.me.playerLocationY;
-                            
-                        //    Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
 
-                            // Print the raw message from the server
-                            Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
+                            //    Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
+
+
 
                             // no movements if there isn't a reachable goal on the board
-                            if (nextMove.x != currentX || nextMove.y != currentY) { packPresents = true; }
+                            if (nextMove.x != currentX || nextMove.y != currentY)
+                            {
+
+                                packPresents = true;
+                            }
 
                             // #### Detect an Enemy who can be shoot out ####
                             /* STEPS
@@ -151,29 +164,28 @@ namespace WindowsGame2.serverClientConnection
                             
                             */
 
-                        foreach (var enemy in game.player)
-                        {
-                              //  Console.WriteLine("my player no "+ game.myPlayerNumber + " Player Loc " + enemy.playerLocationX + "," + enemy.playerLocationY + "Player NO " + enemy.playerNumber);
-                            }
-                        if (game.enemyPresents)
-                        {
-                              //  Console.WriteLine("I can see an enemy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                
+                            if (game.enemyPresents)
+                            {
+                                //  Console.WriteLine("I can see an enemy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
                                 int myDirection = game.me.direction;
-                            //    Console.WriteLine("My direction is " + myDirection);
+                                //    Console.WriteLine("My direction is " + myDirection);
                                 // shoot
                                 if (nextMove.x == currentX + 1)
                                 {
                                     if (myDirection == 1)
                                     {
                                         sendData("SHOOT#");
-                                       
-                                        
+
+
                                     }
                                     // if Im gonna shoot, instead of protecting myself                            
 
-                                    
-                                    else  { sendData("RIGHT#"); }
+
+                                    else
+                                    {
+                                        sendData("RIGHT#");
+                                    }
 
                                     r_stream.Close();
                                     listener.Stop();
@@ -182,19 +194,22 @@ namespace WindowsGame2.serverClientConnection
                                     continue;
 
                                 }
-                    
-                                 else if (nextMove.x == currentX - 1 )
+
+                                else if (nextMove.x == currentX - 1)
                                 {
                                     if (myDirection == 3)
                                     {
                                         sendData("SHOOT#");
-                                       
+
                                     }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
-                                    
-                                    else { sendData("LEFT#"); }
+
+                                    else
+                                    {
+                                        sendData("LEFT#");
+                                    }
 
                                     r_stream.Close();
                                     listener.Stop();
@@ -202,18 +217,21 @@ namespace WindowsGame2.serverClientConnection
                                     game.enemyPresents = false;
                                     continue;
                                 }
-                                 else if (nextMove.y == currentY + 1)
+                                else if (nextMove.y == currentY + 1)
                                 {
                                     if (myDirection == 2)
                                     {
                                         sendData("SHOOT#");
-                                       
+
                                     }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
-                                   
-                                    else { sendData("DOWN#"); }
+
+                                    else
+                                    {
+                                        sendData("DOWN#");
+                                    }
 
                                     r_stream.Close();
                                     listener.Stop();
@@ -221,17 +239,20 @@ namespace WindowsGame2.serverClientConnection
                                     game.enemyPresents = false;
                                     continue;
                                 }
-                                 else if (nextMove.y == currentY - 1)
+                                else if (nextMove.y == currentY - 1)
                                 {
                                     if (myDirection == 0)
                                     {
                                         sendData("SHOOT#");
-                                        
+
                                     }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
-                                    else { sendData("UP#"); }
+                                    else
+                                    {
+                                        sendData("UP#");
+                                    }
 
                                     r_stream.Close();
                                     listener.Stop();
@@ -240,63 +261,79 @@ namespace WindowsGame2.serverClientConnection
                                     continue;
 
                                 }
-                                
-                            game.enemyPresents = false;
-                        }
-                            
+
+                                game.enemyPresents = false;
+                            }
+
 
                             // TO DO:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
-                           
 
-                            if (packPresents)
+                            try
                             {
-                            //    Console.WriteLine("inside pack presents");
-                            //    Console.WriteLine(currentX+","+ currentY+ " next move:- " + nextMove.x+ "," + nextMove.y);
-                                // move the tank
-                                if (nextMove.x == currentX + 1)
+                                if (packPresents)
                                 {
-                                    sendData("RIGHT#");
+                                    //    Console.WriteLine("inside pack presents");
+                                    //    Console.WriteLine(currentX+","+ currentY+ " next move:- " + nextMove.x+ "," + nextMove.y);
+
+                                    // move the tank
+                                    if (nextMove.x == currentX + 1)
+                                    {
+                                        sendData("RIGHT#");
+                                    }
+                                    else if (nextMove.x == currentX - 1)
+                                    {
+                                        sendData("LEFT#");
+                                    }
+                                    else if (nextMove.y == currentY + 1)
+                                    {
+                                        sendData("DOWN#");
+                                    }
+                                    else if (nextMove.y == currentY - 1)
+                                    {
+                                        sendData("UP#");
+                                    }
+                                    packPresents = false;
                                 }
-                                else if (nextMove.x == currentX - 1)
+                                else
                                 {
-                                    sendData("LEFT#");
+                                    sendData("SHOOT#");
                                 }
-                                else if (nextMove.y == currentY + 1)
-                                {
-                                    sendData("DOWN#");
-                                }
-                                else if (nextMove.y == currentY - 1)
-                                {
-                                    sendData("UP#");
-                                }
-                                packPresents = false;
+
                             }
-                        }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("me and an enemy tries to  jump to a cell simultaniously%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                                Console.WriteLine(ex.ToString());
+                                sendData("SHOOT#");
+                                continue;
+                            }
+
+                    }
+                    }
+
+
+                    r_stream.Close();
+                    listener.Stop();
+                    reciever.Close();
                 }
-               
-
-            r_stream.Close();
-            listener.Stop();
-            reciever.Close();
-        }
 
 
-               
+
             }
             catch (Exception e)
             {
-                Console.WriteLine("Communication (RECEIVING) Failed!  " + e.Message+ "\n"+e.Source+ "\n" + e.Data);
+                Console.WriteLine("Communication (RECEIVING) Failed!  " + e.Message + "\n" + e.Source + "\n" + e.Data);
                 errorOcurred = true;
             }
             finally
             {
-                
-               
+
+
                 if (reciever != null)
                     if (reciever.Connected)
                         reciever.Close();
-               // if (errorOcurred)
-                   // receiveData();
+                // if (errorOcurred)
+                // receiveData();
             }
         }
 
@@ -314,7 +351,7 @@ namespace WindowsGame2.serverClientConnection
 
                 _clientSocket.Connect(IPAddress.Parse("127.0.0.1"), 6000);
 
-                if (_clientSocket.Connected)    
+                if (_clientSocket.Connected)
                 {
                     //To write to the socket
                     stream = _clientSocket.GetStream();
@@ -322,7 +359,7 @@ namespace WindowsGame2.serverClientConnection
                     //Create objects for writing across stream
                     writer = new BinaryWriter(stream);
                     Byte[] tempStr = Encoding.ASCII.GetBytes(data);
-                   // Console.WriteLine("Sentdata "+data);
+                    // Console.WriteLine("Sentdata "+data);
                     //writing to the port                
                     writer.Write(tempStr);
 

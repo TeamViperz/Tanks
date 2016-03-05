@@ -281,6 +281,33 @@
       <Time>2016-03-05T00:44:01+05:30</Time>
     </Item>
     <Item>
+      <Source>background3.jpg</Source>
+      <Name>background3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\background3.xnb</Output>
+      <Time>2016-03-05T18:27:34+05:30</Time>
+    </Item>
+    <Item>
+      <Source>textArea3.png</Source>
+      <Name>textArea3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\textArea3.xnb</Output>
+      <Time>2016-03-05T20:14:01+05:30</Time>
+    </Item>
+    <Item>
+      <Source>logo.png</Source>
+      <Name>logo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\logo.xnb</Output>
+      <Time>2016-03-05T20:52:43+05:30</Time>
+    </Item>
+    <Item>
       <Source>myFont.spritefont</Source>
       <Name>myFont</Name>
       <Importer>FontDescriptionImporter</Importer>

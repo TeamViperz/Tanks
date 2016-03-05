@@ -24,7 +24,7 @@ namespace WindowsGame2.ai
         public PathFinder(Grid graph, Cell start, Cell goal)
         {
             //  Priority Queue which contains cells that are candidates for examining, lowest priority to the node with the lowest f value
-            var frontier = new PriorityQueue<Cell>(); 
+            var frontier = new PriorityQueue<Cell>();
             frontier.Enqueue(start, 0);
 
             cameFrom[start] = start;
@@ -35,7 +35,7 @@ namespace WindowsGame2.ai
                 var current = frontier.Dequeue();
 
                 // Exit the search if goal have discovered
-                if (current.Equals(goal)) { break;}
+                if (current.Equals(goal)) { break; }
 
                 // discovers the neighbours
                 foreach (var next in graph.Neighbors(current))
@@ -56,7 +56,7 @@ namespace WindowsGame2.ai
             }
         }
 
-       
+
 
     }
 }

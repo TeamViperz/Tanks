@@ -151,7 +151,7 @@ namespace WindowsGame2.ai
             //remove coin piles that have been accuired by other players.
             foreach (var p in game.player)
             {
-                if (p.health == 0){continue;}  //ignore enemy who has just died!!! :v
+                if (p.health == 0) { continue; }  //ignore enemy who has just died!!! :v
                 if (p.playerNumber == game.myPlayerNumber) { continue; } // ignore me
 
                 foreach (var c in game.Coin)
@@ -314,9 +314,9 @@ namespace WindowsGame2.ai
                 BuildPath(start, goal, pathFinder.cameFrom);
 
                 // filter the reachable coins in time
-                if (timeCostToTarget <= coinPile.lifeTime && timeCostToTarget < lowestTimeCostToCoinPile) // < or <=
+                if (timeCostToTarget <= coinPile.lifeTime && timeCostToTarget <= lowestTimeCostToCoinPile) // < or <=
                 {
-                   // Console.WriteLine("New lowest time cost = " + timeCostToTarget);
+                    // Console.WriteLine("New lowest time cost = " + timeCostToTarget);
                     lowestTimeCostToCoinPile = timeCostToTarget;
 
                     // keep the backup of the nearestpath sequence for now
