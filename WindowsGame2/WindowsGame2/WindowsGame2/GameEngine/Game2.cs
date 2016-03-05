@@ -102,12 +102,14 @@ namespace WindowsGame2.GameEngine
                 //Console.WriteLine("current time:- " + currentTime + " start:- " + pack.appearTimeStamp + " lifeTime:- " + pack.lifeTime + " *****************----------------");
                 if (currentTime >= pack.appearTimeStamp + pack.lifeTime)
                 {
+                    Console.WriteLine("Removing expired coin pile..... current time:- " + currentTime + " start:- " + pack.appearTimeStamp + " lifeTime:- " + pack.lifeTime + " *****************----------------");
                     board[pack.locationY, pack.locationX] = ".";
                     killListCoinPile.Add(pack);
                 }
             }
             foreach (var i in killListCoinPile)
             {
+               
                 Coin.Remove(i);
             }
 

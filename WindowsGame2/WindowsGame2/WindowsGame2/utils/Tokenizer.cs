@@ -28,16 +28,16 @@ namespace WindowsGame2.utils
                 // eg text      S    :     P0;0,0;0    :    P1;0,9;0    #
                 // discription  S:P<num>; < player location  x>,< player location  y>:<Direction>#
 
-                Console.WriteLine(text);
+               // Console.WriteLine(text);
 
                 text = text.Remove(text.Length - 1); // remove the #
                 text = text.Remove(0,2); // remove the S:
 
-                Console.WriteLine(text);
+              //  Console.WriteLine(text);
                 String[] tokens = text.Split(':'); // each token represents a player.
 
                 game.totalPlayers = tokens.Length;
-                Console.WriteLine(game.totalPlayers);
+              //  Console.WriteLine(game.totalPlayers);
                 game.initializePlayers(game.totalPlayers); 
 
                 for (int i=0; i <game.totalPlayers; i++)
@@ -80,7 +80,7 @@ namespace WindowsGame2.utils
             String[] tokens = text.Split(':');
 
             game.myPlayerNumber = int.Parse(tokens[0].Substring(1, 1));
-            Console.WriteLine("my player number is " + game.myPlayerNumber);
+           // Console.WriteLine("my player number is " + game.myPlayerNumber);
 
           //  if (tokens[0].Substring(1, 1).Equals(game.player[game.myPlayerNumber].playerNumber.ToString()))
             //{
@@ -136,7 +136,8 @@ namespace WindowsGame2.utils
             text = text.Remove(0, 2);
             String[] tokens = text.Split(':');
 
-            game.totalPlayers = tokens.Length - 1;
+            //game.totalPlayers = tokens.Length - 1;
+            
 
             // Reason for the for loop:- number of tokens vary with the number of players connected to the server
             for (int i = 0; i < tokens.Length; i++)
@@ -256,6 +257,7 @@ namespace WindowsGame2.utils
             text = text.Remove(0, 2);
             string[] tokens = text.Split(':');
             coin Coin = new coin(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]) / (1000), int.Parse(tokens[2]), game.gameClock);
+            Console.WriteLine("***Coin*** value = " + Coin.value + " life time = "+ Coin.lifeTime + " X,Y "+ Coin.locationX+","+Coin.locationY);
             game.Coin.Add(Coin);
             return 0;
         }
@@ -271,7 +273,9 @@ namespace WindowsGame2.utils
             text = text.Remove(0, 2); // remove L and :
             string[] tokens = text.Split(':');
             lifePacket LifePacket = new lifePacket(int.Parse(tokens[0].Substring(0, 1)), int.Parse(tokens[0].Substring(2, 1)), int.Parse(tokens[1]) / (1000), game.gameClock);
+            Console.WriteLine("***LifePacket*** life time = " + LifePacket.lifeTime + " X,Y " + LifePacket.locationX + "," + LifePacket.locationY);
             game.Lifepacket.Add(LifePacket);
+
             return 0;
         }
 

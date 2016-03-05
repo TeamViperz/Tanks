@@ -148,8 +148,41 @@ namespace WindowsGame2.ai
                 }
             }
 
+            //remove coin piles that have been accuired by other players.
+            foreach (var p in game.player)
+            {
+                if (p.health == 0){continue;}  //ignore enemy who has just died!!! :v
+                if (p.playerNumber == game.myPlayerNumber) { continue; } // ignore me
+
+                foreach (var c in game.Coin)
+                {
+                    // catch whether another player is on a coin pile
+                    if (p.playerLocationX == c.locationX && p.playerLocationY == c.locationY)
+                    {
+                        game.Coin.Remove(c);
+                        break;
+                    }
+                }
+            }
+
+            //remove life packs that have been accuired by other players.
+            foreach (var p in game.player)
+            {
+                if (p.playerNumber == game.myPlayerNumber) { continue; } // ignore me
+                foreach (var life in game.Lifepacket)
+                {
+                    // catch whether another player is on a lifepacket
+                    if (p.playerLocationX == life.locationX && p.playerLocationY == life.locationY)
+                    {
+                        game.Lifepacket.Remove(life);
+                        break;
+                    }
+                }
+            }
+
+
             // get my Player's current position
-            
+
             foreach (var p in game.player)
             {
                 if (p.playerNumber == game.myPlayerNumber)
@@ -158,7 +191,7 @@ namespace WindowsGame2.ai
                 }
             }
             var start = new Cell(game.me.playerLocationX, game.me.playerLocationY);
-            Console.WriteLine("my current location is "+ game.me.playerLocationX + game.me.playerLocationY);
+            //Console.WriteLine("my current location is "+ game.me.playerLocationX + game.me.playerLocationY);
 
             //#################### Begins the Procedure to Get the proper goal to follow. #####################################
 
@@ -265,7 +298,7 @@ namespace WindowsGame2.ai
 
             foreach (var coinPile in game.Coin)
             {
-                Console.WriteLine("lowestTimeCost= " + lowestTimeCostToCoinPile + " timeCostToTarget= " + timeCostToTarget + " lifeTime" + coinPile.lifeTime);
+                //  Console.WriteLine("lowestTimeCost= " + lowestTimeCostToCoinPile + " timeCostToTarget= " + timeCostToTarget + " lifeTime" + coinPile.lifeTime);
 
                 Cell goal = new Cell(coinPile.locationX, coinPile.locationY);
 
@@ -283,7 +316,7 @@ namespace WindowsGame2.ai
                 // filter the reachable coins in time
                 if (timeCostToTarget <= coinPile.lifeTime && timeCostToTarget < lowestTimeCostToCoinPile) // < or <=
                 {
-                    Console.WriteLine("New lowest time cost = " + timeCostToTarget);
+                   // Console.WriteLine("New lowest time cost = " + timeCostToTarget);
                     lowestTimeCostToCoinPile = timeCostToTarget;
 
                     // keep the backup of the nearestpath sequence for now
@@ -297,7 +330,7 @@ namespace WindowsGame2.ai
 
             if (game.Coin.Count != 0)
             {
-                Console.WriteLine("Coin removed!");
+                //  Console.WriteLine("Coin removed!");
                 game.Coin.Remove(accuiredCoin);
             }
 

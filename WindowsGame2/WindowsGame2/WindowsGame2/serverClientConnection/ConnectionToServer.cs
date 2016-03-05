@@ -109,11 +109,11 @@ namespace WindowsGame2.serverClientConnection
                 {
                     if (messageFromServer.StartsWith("G"))
                     {
-                            Console.WriteLine("inide G");
+                          //  Console.WriteLine("inide G");
                             // to keep syn the game clock with server clock
                             game.gameClock += 1;
 
-                            //  Console.WriteLine(game.gameClock);
+                              Console.WriteLine("Game Clock is " +game.gameClock);
 
                             game.addPacksToBoard();
                             game.updatePacks(game.gameClock);
@@ -133,7 +133,7 @@ namespace WindowsGame2.serverClientConnection
                             int currentX = game.me.playerLocationX;
                             int currentY = game.me.playerLocationY;
                             
-                            Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
+                        //    Console.WriteLine("\nNextX:- " + nextMove.x + " NextY:- " + nextMove.y + "\n");
 
                             // Print the raw message from the server
                             Console.WriteLine("\nServer messege:- " + messageFromServer + "\n");
@@ -153,14 +153,14 @@ namespace WindowsGame2.serverClientConnection
 
                         foreach (var enemy in game.player)
                         {
-                                Console.WriteLine("my player no "+ game.myPlayerNumber + " Player Loc " + enemy.playerLocationX + "," + enemy.playerLocationY + "Player NO " + enemy.playerNumber);
+                              //  Console.WriteLine("my player no "+ game.myPlayerNumber + " Player Loc " + enemy.playerLocationX + "," + enemy.playerLocationY + "Player NO " + enemy.playerNumber);
                             }
                         if (game.enemyPresents)
                         {
-                                Console.WriteLine("I can see an enemy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                              //  Console.WriteLine("I can see an enemy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                 
-                                int myDirection = game.player[game.myPlayerNumber].direction;
-                                Console.WriteLine("My direction is " + myDirection);
+                                int myDirection = game.me.direction;
+                            //    Console.WriteLine("My direction is " + myDirection);
                                 // shoot
                                 if (nextMove.x == currentX + 1)
                                 {
@@ -250,8 +250,8 @@ namespace WindowsGame2.serverClientConnection
 
                             if (packPresents)
                             {
-                                Console.WriteLine("inside pack presents");
-                                Console.WriteLine(currentX+","+ currentY+ " next move:- " + nextMove.x+ "," + nextMove.y);
+                            //    Console.WriteLine("inside pack presents");
+                            //    Console.WriteLine(currentX+","+ currentY+ " next move:- " + nextMove.x+ "," + nextMove.y);
                                 // move the tank
                                 if (nextMove.x == currentX + 1)
                                 {
@@ -322,7 +322,7 @@ namespace WindowsGame2.serverClientConnection
                     //Create objects for writing across stream
                     writer = new BinaryWriter(stream);
                     Byte[] tempStr = Encoding.ASCII.GetBytes(data);
-                    Console.WriteLine("Sentdata "+data);
+                   // Console.WriteLine("Sentdata "+data);
                     //writing to the port                
                     writer.Write(tempStr);
 
