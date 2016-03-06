@@ -11,15 +11,6 @@
       <Time>2015-12-16T10:25:38+05:30</Time>
     </Item>
     <Item>
-      <Source>background.jpg</Source>
-      <Name>background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2015-12-16T10:25:38+05:30</Time>
-    </Item>
-    <Item>
       <Source>foreground.png</Source>
       <Name>foreground</Name>
       <Importer>TextureImporter</Importer>
@@ -200,15 +191,6 @@
       <Time>2015-12-18T02:16:46+05:30</Time>
     </Item>
     <Item>
-      <Source>cell2.png</Source>
-      <Name>cell2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell2.xnb</Output>
-      <Time>2016-03-04T22:56:54+05:30</Time>
-    </Item>
-    <Item>
       <Source>cell3.png</Source>
       <Name>cell3</Name>
       <Importer>TextureImporter</Importer>
@@ -216,15 +198,6 @@
       <Options>None</Options>
       <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell3.xnb</Output>
       <Time>2016-03-04T23:45:16+05:30</Time>
-    </Item>
-    <Item>
-      <Source>cell4.png</Source>
-      <Name>cell4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell4.xnb</Output>
-      <Time>2016-03-04T23:46:24+05:30</Time>
     </Item>
     <Item>
       <Source>cell5.png</Source>
@@ -314,7 +287,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\myFont.xnb</Output>
-      <Time>2015-12-17T02:12:35+05:30</Time>
+      <Time>2016-03-06T08:33:31+05:30</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

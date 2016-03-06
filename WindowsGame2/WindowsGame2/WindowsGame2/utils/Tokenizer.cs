@@ -193,7 +193,9 @@ namespace WindowsGame2.utils
                         }
                         if (j == 3)
                         {
+                            
                             game.player[i].health = int.Parse(tokens2[j]);
+                          //  if (game.player[i].playerNumber == game.me.playerNumber) { game.player[i].health = 80; }
                         }
                         if (j == 4)
                         {
@@ -383,7 +385,7 @@ namespace WindowsGame2.utils
                 if (!(b.isFull))
                 {
                     Console.WriteLine("Detected a fully damaged brick!!");
-                    game.board[b.locationX, b.locationY] = ".";
+                    game.board[b.locationY, b.locationX] = ".";
                 }
             }
         }

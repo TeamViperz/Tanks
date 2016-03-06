@@ -463,9 +463,9 @@ namespace WindowsGame2
                     //spriteBatch.DrawString(font, "Points:" + tank[i].points.ToString(), new Vector2(800, 145 + 65 * i), textCoulours[i]);
                     //spriteBatch.DrawString(font, "Health:" + tank[i].health.ToString(), new Vector2(925, 145 + 65 * i), textCoulours[i]);
                     //spriteBatch.DrawString(font, "Coins:" + tank[i].points.ToString(), new Vector2(1050, 145 + 65 * i), textCoulours[i]);
-                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(935, 200 + 42 * i), textCoulours[i]);
+                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(925, 200 + 42 * i), textCoulours[i]);
                     spriteBatch.DrawString(font, tank[i].health.ToString(), new Vector2(1010, 200 + 42 * i), textCoulours[i]);
-                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(1090, 200 + 42 * i), textCoulours[i]);
+                    spriteBatch.DrawString(font, tank[i].points.ToString(), new Vector2(1085, 200 + 42 * i), textCoulours[i]);
                 }
 
             }

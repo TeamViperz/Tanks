@@ -336,6 +336,23 @@ namespace WindowsGame2.ai
 
 
             // ####### take decission to go to the Life pack or the Coin pile
+/*
+            if (game.me.health < 100 )
+            {
+                Console.WriteLine("my health is low");
+                if (pathToNearestLifePack.Count != 0)
+                {
+                    //get the next cell address to move
+                    var nextCell = pathToNearestLifePack.Pop();
+
+                    // clear stacks
+                    pathToNearestLifePack.Clear();
+                    path.Clear();
+
+                    return nextCell;
+                }
+               
+            }*/
 
             if (lowestTimeCostToCoinPile < lowestTimeCostToLifePack)
             {
@@ -356,7 +373,9 @@ namespace WindowsGame2.ai
                     path.Clear();
                     return start;
                 }
+
             }
+
 
             if (pathToNearestLifePack.Count != 0)
             {

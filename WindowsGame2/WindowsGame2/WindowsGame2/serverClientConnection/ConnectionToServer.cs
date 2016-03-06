@@ -74,7 +74,7 @@ namespace WindowsGame2.serverClientConnection
                 //    Console.WriteLine("recieving");
 
                 //Creating listening Socket
-                this.listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 7000);
+                this.listener = new TcpListener(IPAddress.Any, 7000);
 
                 //      Console.WriteLine("waiting for server response");
 
@@ -118,7 +118,9 @@ namespace WindowsGame2.serverClientConnection
 
                             Console.WriteLine("Game Clock is " + game.gameClock);
 
-                            game.addPacksToBoard();
+                            try
+                            {
+                                game.addPacksToBoard();
                             game.updatePacks(game.gameClock);
 
 
@@ -163,8 +165,8 @@ namespace WindowsGame2.serverClientConnection
                             4. if health is low? don't engage (hide) : engage (shoot) face to face
                             
                             */
-
-                            if (game.enemyPresents)
+                           
+                                if (game.enemyPresents)
                             {
                                 //  Console.WriteLine("I can see an enemy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
@@ -175,7 +177,7 @@ namespace WindowsGame2.serverClientConnection
                                 {
                                     if (myDirection == 1)
                                     {
-                                        sendData("SHOOT#");
+                                        shoot();
 
 
                                     }
@@ -199,9 +201,9 @@ namespace WindowsGame2.serverClientConnection
                                 {
                                     if (myDirection == 3)
                                     {
-                                        sendData("SHOOT#");
+                                            shoot();
 
-                                    }
+                                        }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
@@ -221,9 +223,9 @@ namespace WindowsGame2.serverClientConnection
                                 {
                                     if (myDirection == 2)
                                     {
-                                        sendData("SHOOT#");
+                                            shoot();
 
-                                    }
+                                        }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
@@ -243,9 +245,8 @@ namespace WindowsGame2.serverClientConnection
                                 {
                                     if (myDirection == 0)
                                     {
-                                        sendData("SHOOT#");
-
-                                    }
+                                            shoot();
+                                        }
 
                                     // if Im gonna shoot, instead of protecting myself                            
 
@@ -268,8 +269,7 @@ namespace WindowsGame2.serverClientConnection
 
                             // TO DO:- initialy tank direction is up, it wants to go right... timeCostToTarget is lack of the time to turn right... has to fix this.             
 
-                            try
-                            {
+                            
                                 if (packPresents)
                                 {
                                     //    Console.WriteLine("inside pack presents");
@@ -296,15 +296,15 @@ namespace WindowsGame2.serverClientConnection
                                 }
                                 else
                                 {
-                                    sendData("SHOOT#");
+                                    shoot();
                                 }
 
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine("me and an enemy tries to  jump to a cell simultaniously%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-                                Console.WriteLine(ex.ToString());
-                                sendData("SHOOT#");
+                                Console.WriteLine("inside catch-------"+ex.ToString());
+                                shoot();
                                 continue;
                             }
 
@@ -329,14 +329,21 @@ namespace WindowsGame2.serverClientConnection
             {
 
 
-                if (reciever != null)
+                /*if (reciever != null)
                     if (reciever.Connected)
-                        reciever.Close();
+                        reciever.Close();*/
                 // if (errorOcurred)
-                // receiveData();
+                Console.WriteLine("restarting receiving ;)");
+                 receiveData();
             }
         }
 
+        public void shoot()
+        {
+            sendData("SHOOT#");
+            
+           
+        }
 
         /// <summary>
         /// method to send data to an already connected server
@@ -349,6 +356,7 @@ namespace WindowsGame2.serverClientConnection
                 // Create a new TCP client socket to send data to the server
                 _clientSocket = new TcpClient();
 
+                //192.168.1.100            
                 _clientSocket.Connect(IPAddress.Parse("127.0.0.1"), 6000);
 
                 if (_clientSocket.Connected)

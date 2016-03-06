@@ -11,6 +11,7 @@ C:\Users\prabath s\Documents\Visual Studio 2013\Projects\WindowsGame2\WindowsGam
 C:\Users\prabath s\documents\visual studio 2013\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tank1.xnb
 C:\Users\prabath s\documents\visual studio 2013\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tank2.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\ground.xnb
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\background.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\foreground.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tank1.xnb
@@ -25,6 +26,7 @@ C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\Window
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.Gui.Joystick.resources
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.csproj.GenerateResource.Cache
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\ground.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\background.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\foreground.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tank1.xnb
@@ -79,7 +81,9 @@ F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGa
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\coin.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\lifepack.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.csprojResolveAssemblyReference.cache
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell2.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell3.xnb
+C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell4.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell5.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\textArea2.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brownTank.xnb
@@ -87,7 +91,9 @@ C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\Window
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\purpleTank.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\redTank.xnb
 C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\tank3.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell2.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell3.xnb
+F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell4.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\cell5.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\textArea2.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\brownTank.xnb
@@ -100,35 +106,3 @@ C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\Window
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\background3.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\textArea3.xnb
 F:\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\Content\logo.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\ground.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\foreground.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\cell.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\tank1.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\tank2.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\cell1.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\tank3.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\brick_full.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\stone.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\water.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\bullet.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\empty.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\rocket.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\tankBackground1.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\tankBackground2.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\textArea.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\brick_25.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\brick_50.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\brick_75.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\coin.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\lifepack.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\cell3.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\cell5.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\textArea2.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\brownTank.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\greenTank.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\purpleTank.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\redTank.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\background3.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\textArea3.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\logo.xnb
-C:\Users\prabath s\Dropbox\ProgChallengell\Project\Tank_Game\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\myFont.xnb
